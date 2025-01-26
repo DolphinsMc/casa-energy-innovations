@@ -80,7 +80,7 @@ export const Hero = () => {
           >
             <a 
               href="#services" 
-              className="glass-card px-8 py-4 text-white hover:bg-white/20 transition-all duration-300 flex items-center gap-2 group"
+              className="glass-card px-8 py-4 text-secondary hover:bg-white/20 transition-all duration-300 flex items-center gap-2 group"
             >
               Discover Our Services
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
