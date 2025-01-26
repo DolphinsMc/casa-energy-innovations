@@ -12,7 +12,7 @@ export const Hero = () => {
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute text-secondary/20"
+            className="absolute text-white/20" // Changed from text-secondary/20 to ensure visibility
             initial={{ y: Math.random() * 100, x: Math.random() * 100 }}
             animate={{
               y: [Math.random() * 100, Math.random() * -100],
@@ -57,7 +57,7 @@ export const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-xl md:text-2xl text-white/90 mb-8"
+            className="text-xl md:text-2xl text-white mb-8" // Removed opacity to ensure full visibility
           >
             Air Source Heat Pump Specialists
           </motion.p>
@@ -77,7 +77,7 @@ export const Hero = () => {
             </a>
             <a 
               href="#contact" 
-              className="glass-card px-8 py-4 bg-secondary/80 text-primary hover:bg-secondary transition-all duration-300"
+              className="glass-card px-8 py-4 bg-secondary text-primary hover:bg-secondary/90 transition-all duration-300 font-semibold"
             >
               Get £7,500 Grant
             </a>

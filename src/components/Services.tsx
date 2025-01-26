@@ -47,8 +47,8 @@ export const Services = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gradient">Our Services</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-primary">CASA Services</h2>
+          <p className="text-lg text-gray-800 max-w-2xl mx-auto">
             Comprehensive renewable energy solutions for your home or business
           </p>
         </motion.div>
@@ -71,7 +71,7 @@ export const Services = () => {
                 {service.icon}
               </motion.div>
               <h3 className="text-xl font-bold mb-4 text-primary">{service.title}</h3>
-              <p className="text-gray-600">{service.description}</p>
+              <p className="text-gray-800">{service.description}</p>
             </motion.div>
           ))}
         </div>
