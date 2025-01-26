@@ -37,7 +37,18 @@
 }
 
 .glass-card {
-  @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl shadow-xl;
+  @apply bg-white/90 backdrop-blur-lg border border-white/20 rounded-xl;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+              0 2px 4px -1px rgba(0, 0, 0, 0.06),
+              0 0 0 1px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+              0 10px 10px -5px rgba(0, 0, 0, 0.04),
+              0 0 0 1px rgba(255, 255, 255, 0.3);
 }
 
 .parallax-bg {
