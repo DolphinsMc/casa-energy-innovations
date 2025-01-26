@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Logo } from "./Logo";
 
 export const Hero = () => {
   return (
@@ -44,20 +45,29 @@ export const Hero = () => {
           transition={{ duration: 0.8 }}
           className="glass-card p-8 md:p-12 max-w-4xl mx-auto"
         >
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="flex justify-center mb-6"
+          >
+            <Logo />
+          </motion.div>
+          
           <motion.h1 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 neon-glow"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
           >
-            CASA Renewable Energy
+            Renewable Energy
           </motion.h1>
           
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-xl md:text-2xl text-white mb-8" // Removed opacity to ensure full visibility
+            className="text-xl md:text-2xl text-white mb-8"
           >
             Air Source Heat Pump Specialists
           </motion.p>
