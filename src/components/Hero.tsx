@@ -13,7 +13,7 @@ export const Hero = () => {
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute text-white/20" // Changed from text-secondary/20 to ensure visibility
+            className="absolute text-white/20"
             initial={{ y: Math.random() * 100, x: Math.random() * 100 }}
             animate={{
               y: [Math.random() * 100, Math.random() * -100],
@@ -58,7 +58,7 @@ export const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#33C3F0] mb-6"
           >
             Renewable Energy
           </motion.h1>
@@ -67,7 +67,7 @@ export const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-xl md:text-2xl text-white mb-8"
+            className="text-xl md:text-2xl text-[#33C3F0] mb-8"
           >
             Air Source Heat Pump Specialists
           </motion.p>
