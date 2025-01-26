@@ -106,24 +106,24 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background" data-dashboard-element>
+    <div className="min-h-screen bg-gradient-to-b from-[#1A1F2C] to-[#0F1218]" data-dashboard-element>
       <Header />
       <main className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8">Dashboard Appearance</h1>
+        <h1 className="text-4xl font-bold mb-8 text-white">Dashboard Appearance</h1>
         
         <Tabs defaultValue="colors" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="colors">Colors</TabsTrigger>
-            <TabsTrigger value="presets">Presets</TabsTrigger>
-            <TabsTrigger value="effects">Effects</TabsTrigger>
+          <TabsList className="bg-[#2A2F3C] border border-gray-700">
+            <TabsTrigger value="colors" className="text-gray-200 data-[state=active]:bg-[#F97316] data-[state=active]:text-white">Colors</TabsTrigger>
+            <TabsTrigger value="presets" className="text-gray-200 data-[state=active]:bg-[#F97316] data-[state=active]:text-white">Presets</TabsTrigger>
+            <TabsTrigger value="effects" className="text-gray-200 data-[state=active]:bg-[#F97316] data-[state=active]:text-white">Effects</TabsTrigger>
           </TabsList>
 
           <TabsContent value="colors">
-            <Card className="p-6">
+            <Card className="bg-[#2A2F3C]/80 border-gray-700 p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {Object.entries(dashboardColors).map(([key, value]) => (
                   <div key={key} className="space-y-2">
-                    <Label htmlFor={key} className="capitalize">
+                    <Label htmlFor={key} className="capitalize text-gray-200">
                       {key.replace(/([A-Z])/g, ' $1').trim()}
                     </Label>
                     <div className="flex items-center gap-4">
@@ -132,13 +132,13 @@ const DashboardPage = () => {
                         type="color"
                         value={value}
                         onChange={(e) => handleDashboardColorChange(key, e.target.value)}
-                        className="w-16 h-8 p-0"
+                        className="w-16 h-8 p-0 bg-transparent border-gray-700"
                       />
                       <Input
                         type="text"
                         value={value}
                         onChange={(e) => handleDashboardColorChange(key, e.target.value)}
-                        className="w-32"
+                        className="w-32 bg-[#1A1F2C] border-gray-700 text-gray-200"
                       />
                     </div>
                   </div>
@@ -148,20 +148,20 @@ const DashboardPage = () => {
           </TabsContent>
 
           <TabsContent value="presets">
-            <Card className="p-6">
+            <Card className="bg-[#2A2F3C]/80 border-gray-700 p-6">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Button onClick={() => applyDashboardPreset('default')}>Default</Button>
-                <Button onClick={() => applyDashboardPreset('dark')}>Dark</Button>
-                <Button onClick={() => applyDashboardPreset('professional')}>Professional</Button>
-                <Button onClick={() => applyDashboardPreset('modern')}>Modern</Button>
+                <Button onClick={() => applyDashboardPreset('default')} className="bg-[#F97316] text-white hover:bg-[#F97316]/90">Default</Button>
+                <Button onClick={() => applyDashboardPreset('dark')} className="bg-[#F97316] text-white hover:bg-[#F97316]/90">Dark</Button>
+                <Button onClick={() => applyDashboardPreset('professional')} className="bg-[#F97316] text-white hover:bg-[#F97316]/90">Professional</Button>
+                <Button onClick={() => applyDashboardPreset('modern')} className="bg-[#F97316] text-white hover:bg-[#F97316]/90">Modern</Button>
               </div>
             </Card>
           </TabsContent>
 
           <TabsContent value="effects">
-            <Card className="p-6 space-y-6">
+            <Card className="bg-[#2A2F3C]/80 border-gray-700 p-6 space-y-6">
               <div className="flex items-center justify-between">
-                <Label htmlFor="dark-mode">Dark Mode</Label>
+                <Label htmlFor="dark-mode" className="text-gray-200">Dark Mode</Label>
                 <Switch
                   id="dark-mode"
                   checked={darkMode}
@@ -170,7 +170,7 @@ const DashboardPage = () => {
               </div>
 
               <div className="flex items-center justify-between">
-                <Label htmlFor="glass-effect">Glass Effect</Label>
+                <Label htmlFor="glass-effect" className="text-gray-200">Glass Effect</Label>
                 <Switch
                   id="glass-effect"
                   checked={glassEffect}
@@ -181,11 +181,10 @@ const DashboardPage = () => {
           </TabsContent>
         </Tabs>
 
-        {/* Add Save Changes button */}
         <div className="mt-8 flex justify-end">
           <Button 
             onClick={handleSaveChanges}
-            className="px-6"
+            className="px-6 bg-[#F97316] text-white hover:bg-[#F97316]/90"
             size="lg"
           >
             Save Changes
