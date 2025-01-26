@@ -61,7 +61,7 @@
 }
 
 .neon-glow {
-  text-shadow: 0 0 10px var(--secondary), 0 0 20px var(--secondary), 0 0 30px var(--secondary);
+  text-shadow: 0 0 10px hsl(var(--secondary)), 0 0 20px hsl(var(--secondary)), 0 0 30px hsl(var(--secondary));
 }
 
 @keyframes float {
@@ -78,5 +78,5 @@
 }
 
 .hover-glow:hover {
-  filter: drop-shadow(0 0 8px theme('colors.secondary'));
+  filter: drop-shadow(0 0 8px hsl(var(--secondary)));
 }

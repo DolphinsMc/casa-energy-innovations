@@ -4,23 +4,31 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Facebook, PenSquare, Share2, Sparkles, BarChart3, Clock, Users } from "lucide-react";
+import { Facebook, PenSquare, Share2, Sparkles, BarChart3, Clock, Users, MessageCircle, Bot } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 const DashboardPage = () => {
   const [blogTopics, setBlogTopics] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
+  const [chatbotName, setChatbotName] = useState("CASA Assistant");
+  const [chatbotEnabled, setChatbotEnabled] = useState(true);
 
   const handleGeneratePosts = async () => {
     setIsGenerating(true);
-    // TODO: Implement AI blog post generation
-    console.log("Generating posts for topics:", blogTopics);
-    setTimeout(() => setIsGenerating(false), 2000); // Simulated delay
+    try {
+      // TODO: Implement Deepseek API integration for content generation
+      console.log("Generating posts using Deepseek API for topics:", blogTopics);
+      setTimeout(() => setIsGenerating(false), 2000);
+    } catch (error) {
+      console.error("Error generating posts:", error);
+      setIsGenerating(false);
+    }
   };
 
   const handleShareToFacebook = () => {
-    // TODO: Implement Facebook sharing
     console.log("Sharing to Facebook");
   };
 
@@ -36,57 +44,24 @@ const DashboardPage = () => {
           >
             Content Dashboard
           </motion.h1>
-          <p className="text-muted-foreground">Manage your content and analytics in one place</p>
-        </div>
-
-        {/* Analytics Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-background/60 backdrop-blur-lg border-primary/10">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Total Posts</CardTitle>
-              <PenSquare className="w-4 h-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">128</div>
-              <p className="text-xs text-muted-foreground">+14% from last month</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-background/60 backdrop-blur-lg border-primary/10">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Engagement</CardTitle>
-              <Users className="w-4 h-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">2,842</div>
-              <p className="text-xs text-muted-foreground">+22% from last month</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-background/60 backdrop-blur-lg border-primary/10">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Avg. Time</CardTitle>
-              <Clock className="w-4 h-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">3m 24s</div>
-              <p className="text-xs text-muted-foreground">+7% from last month</p>
-            </CardContent>
-          </Card>
+          <p className="text-muted-foreground">Manage your content and chatbot settings in one place</p>
         </div>
 
         <Tabs defaultValue="content" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-2 lg:w-[400px]">
-            <TabsTrigger value="content">Content Manager</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3 lg:w-[400px]">
+            <TabsTrigger value="content">Content</TabsTrigger>
+            <TabsTrigger value="chatbot">Chatbot</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
           </TabsList>
 
           <TabsContent value="content" className="space-y-4">
             <Card className="bg-background/60 backdrop-blur-lg border-primary/10">
               <CardHeader>
-                <CardTitle>AI Blog Post Generator</CardTitle>
+                <CardTitle>AI Content Generator</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Topics or Keywords</label>
+                  <Label>Topics or Keywords</Label>
                   <Input
                     placeholder="Enter topics separated by commas (e.g., heat pumps, energy efficiency, solar power)"
                     value={blogTopics}
@@ -100,7 +75,7 @@ const DashboardPage = () => {
                     className="w-full md:w-auto"
                   >
                     <Sparkles className="w-4 h-4 mr-2" />
-                    {isGenerating ? "Generating..." : "Generate Posts"}
+                    {isGenerating ? "Generating..." : "Generate Content"}
                   </Button>
                   <Button
                     variant="outline"
@@ -113,29 +88,33 @@ const DashboardPage = () => {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
 
+          <TabsContent value="chatbot" className="space-y-4">
             <Card className="bg-background/60 backdrop-blur-lg border-primary/10">
               <CardHeader>
-                <CardTitle>Recent Posts</CardTitle>
+                <CardTitle>Chatbot Settings</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {[1, 2, 3].map((i) => (
-                    <div
-                      key={i}
-                      className="flex items-center justify-between p-4 rounded-lg bg-background/40 hover:bg-background/60 transition-colors"
-                    >
-                      <div>
-                        <h3 className="font-medium">The Future of Heat Pumps</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Published 2 days ago • 5 min read
-                        </p>
-                      </div>
-                      <Button variant="ghost" size="icon">
-                        <Share2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  ))}
+              <CardContent className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label>Enable Chatbot</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Show or hide the chatbot across all pages
+                    </p>
+                  </div>
+                  <Switch
+                    checked={chatbotEnabled}
+                    onCheckedChange={setChatbotEnabled}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Chatbot Name</Label>
+                  <Input
+                    value={chatbotName}
+                    onChange={(e) => setChatbotName(e.target.value)}
+                    placeholder="Enter chatbot name"
+                  />
                 </div>
               </CardContent>
             </Card>
