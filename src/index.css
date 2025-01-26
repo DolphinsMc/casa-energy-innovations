@@ -72,3 +72,11 @@
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
+
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  filter: drop-shadow(0 0 8px theme('colors.secondary'));
+}

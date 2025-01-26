@@ -1,16 +1,26 @@
+import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { About } from "@/components/About";
 import { Services } from "@/components/Services";
+import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
+import { Footer } from "@/components/Footer";
+import { Features } from "@/components/Features";
+import { Innovation } from "@/components/Innovation";
+import { Contact } from "@/components/Contact";
 
 const Home = () => {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white">
+      <Header />
       <Hero />
       <About />
       <Services />
+      <Features />
       <Projects />
-    </main>
+      <Innovation />
+      <Contact />
+      <Footer />
+    </div>
   );
 };
 
