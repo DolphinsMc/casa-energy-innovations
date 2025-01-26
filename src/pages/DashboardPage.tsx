@@ -33,8 +33,8 @@ const DashboardPage = () => {
       [colorKey]: value
     }));
     
-    // Apply color changes only to dashboard elements
-    const element = document.querySelector('[data-dashboard-element]');
+    // Fix: Type assertion to HTMLElement
+    const element = document.querySelector('[data-dashboard-element]') as HTMLElement;
     if (element) {
       element.style.setProperty(`--dashboard-${colorKey}`, value);
     }
