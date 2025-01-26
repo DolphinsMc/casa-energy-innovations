@@ -13,198 +13,167 @@ const DashboardPage = () => {
   const { toast } = useToast();
   const [darkMode, setDarkMode] = useState(false);
   const [glassEffect, setGlassEffect] = useState(false);
-  const [animationSpeed, setAnimationSpeed] = useState(1);
-  const [borderRadius, setBorderRadius] = useState(0.5);
   
-  // Color states
-  const [colors, setColors] = useState({
-    background: "#ffffff",
-    foreground: "#000000",
-    primary: "#1a1a1a",
-    secondary: "#f0f0f0",
-    accent: "#0066cc",
-    muted: "#666666",
-    border: "#e0e0e0",
-    card: "#ffffff",
-    destructive: "#ff0000"
+  // Dashboard-specific color states
+  const [dashboardColors, setDashboardColors] = useState({
+    cardBackground: "#ffffff",
+    cardText: "#000000",
+    headerBackground: "#f8f9fa",
+    sidebarBackground: "#ffffff",
+    buttonPrimary: "#0066cc",
+    buttonSecondary: "#6c757d",
+    chartColors: ["#4e79a7", "#f28e2c", "#e15759", "#76b7b2", "#59a14f"],
+    tabsBackground: "#ffffff",
+    tabsActive: "#e6f3ff"
   });
 
-  const handleColorChange = (colorKey: string, value: string) => {
-    setColors(prev => ({
+  const handleDashboardColorChange = (colorKey: string, value: string) => {
+    setDashboardColors(prev => ({
       ...prev,
       [colorKey]: value
     }));
     
-    // Update CSS variables
-    document.documentElement.style.setProperty(`--${colorKey}`, value);
+    // Apply color changes only to dashboard elements
+    const element = document.querySelector('[data-dashboard-element]');
+    if (element) {
+      element.style.setProperty(`--dashboard-${colorKey}`, value);
+    }
     
-    console.log(`Color ${colorKey} updated to ${value}`);
+    console.log(`Dashboard color ${colorKey} updated to ${value}`);
+    
+    toast({
+      title: "Color Updated",
+      description: `Dashboard ${colorKey} color has been updated.`
+    });
   };
 
-  const applyThemePreset = (preset: 'classic' | 'dark' | 'ocean' | 'forest') => {
+  const applyDashboardPreset = (preset: 'default' | 'dark' | 'professional' | 'modern') => {
     const presets = {
-      classic: {
-        background: "#ffffff",
-        foreground: "#000000",
-        primary: "#1a1a1a",
-        secondary: "#f0f0f0",
-        accent: "#0066cc",
-        muted: "#666666",
-        border: "#e0e0e0",
-        card: "#ffffff",
-        destructive: "#ff0000"
+      default: {
+        cardBackground: "#ffffff",
+        cardText: "#000000",
+        headerBackground: "#f8f9fa",
+        sidebarBackground: "#ffffff",
+        buttonPrimary: "#0066cc",
+        buttonSecondary: "#6c757d",
+        chartColors: ["#4e79a7", "#f28e2c", "#e15759", "#76b7b2", "#59a14f"],
+        tabsBackground: "#ffffff",
+        tabsActive: "#e6f3ff"
       },
       dark: {
-        background: "#1a1a1a",
-        foreground: "#ffffff",
-        primary: "#f0f0f0",
-        secondary: "#333333",
-        accent: "#3399ff",
-        muted: "#999999",
-        border: "#404040",
-        card: "#262626",
-        destructive: "#ff3333"
+        cardBackground: "#2d3748",
+        cardText: "#ffffff",
+        headerBackground: "#1a202c",
+        sidebarBackground: "#2d3748",
+        buttonPrimary: "#4299e1",
+        buttonSecondary: "#718096",
+        chartColors: ["#63b3ed", "#f6ad55", "#fc8181", "#9ae6b4", "#b794f4"],
+        tabsBackground: "#2d3748",
+        tabsActive: "#4a5568"
       },
-      ocean: {
-        background: "#f0f7ff",
-        foreground: "#003366",
-        primary: "#0066cc",
-        secondary: "#e6f3ff",
-        accent: "#00ccff",
-        muted: "#6699cc",
-        border: "#cce6ff",
-        card: "#ffffff",
-        destructive: "#ff3366"
+      professional: {
+        cardBackground: "#f7fafc",
+        cardText: "#2d3748",
+        headerBackground: "#edf2f7",
+        sidebarBackground: "#f7fafc",
+        buttonPrimary: "#3182ce",
+        buttonSecondary: "#718096",
+        chartColors: ["#2b6cb0", "#dd6b20", "#c53030", "#2f855a", "#6b46c1"],
+        tabsBackground: "#f7fafc",
+        tabsActive: "#e2e8f0"
       },
-      forest: {
-        background: "#f5fff5",
-        foreground: "#1a331a",
-        primary: "#336633",
-        secondary: "#e6ffe6",
-        accent: "#66cc66",
-        muted: "#669966",
-        border: "#ccffcc",
-        card: "#ffffff",
-        destructive: "#cc3333"
+      modern: {
+        cardBackground: "#ffffff",
+        cardText: "#1a202c",
+        headerBackground: "#f7fafc",
+        sidebarBackground: "#ffffff",
+        buttonPrimary: "#5a67d8",
+        buttonSecondary: "#718096",
+        chartColors: ["#667eea", "#f6ad55", "#fc8181", "#68d391", "#b794f4"],
+        tabsBackground: "#ffffff",
+        tabsActive: "#ebf4ff"
       }
     };
 
-    setColors(presets[preset]);
-    Object.entries(presets[preset]).forEach(([key, value]) => {
-      document.documentElement.style.setProperty(`--${key}`, value);
-    });
-
+    setDashboardColors(presets[preset]);
+    
     toast({
-      title: "Theme Applied",
-      description: `${preset.charAt(0).toUpperCase() + preset.slice(1)} theme has been applied.`,
+      title: "Dashboard Theme Applied",
+      description: `${preset.charAt(0).toUpperCase() + preset.slice(1)} dashboard theme has been applied.`
     });
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background" data-dashboard-element>
       <Header />
       <main className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
+        <h1 className="text-4xl font-bold mb-8">Dashboard Appearance</h1>
         
-        <Tabs defaultValue="theme" className="space-y-4">
+        <Tabs defaultValue="colors" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="theme">Theme</TabsTrigger>
             <TabsTrigger value="colors">Colors</TabsTrigger>
-            <TabsTrigger value="chatbot">Chatbot</TabsTrigger>
+            <TabsTrigger value="presets">Presets</TabsTrigger>
+            <TabsTrigger value="effects">Effects</TabsTrigger>
           </TabsList>
-
-          <TabsContent value="theme">
-            <Card className="p-6 space-y-6">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="dark-mode">Dark Mode</Label>
-                  <Switch
-                    id="dark-mode"
-                    checked={darkMode}
-                    onCheckedChange={setDarkMode}
-                  />
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="glass-effect">Glass Effect</Label>
-                  <Switch
-                    id="glass-effect"
-                    checked={glassEffect}
-                    onCheckedChange={setGlassEffect}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Animation Speed ({animationSpeed}s)</Label>
-                  <Slider
-                    value={[animationSpeed]}
-                    onValueChange={([value]) => setAnimationSpeed(value)}
-                    min={0.1}
-                    max={2}
-                    step={0.1}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Border Radius ({borderRadius}rem)</Label>
-                  <Slider
-                    value={[borderRadius]}
-                    onValueChange={([value]) => setBorderRadius(value)}
-                    min={0}
-                    max={2}
-                    step={0.1}
-                  />
-                </div>
-              </div>
-            </Card>
-          </TabsContent>
 
           <TabsContent value="colors">
             <Card className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold mb-4">Theme Presets</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <Button onClick={() => applyThemePreset('classic')}>Classic</Button>
-                    <Button onClick={() => applyThemePreset('dark')}>Dark</Button>
-                    <Button onClick={() => applyThemePreset('ocean')}>Ocean</Button>
-                    <Button onClick={() => applyThemePreset('forest')}>Forest</Button>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold mb-4">Custom Colors</h3>
-                  {Object.entries(colors).map(([key, value]) => (
-                    <div key={key} className="flex items-center gap-4">
-                      <Label htmlFor={key} className="w-24">{key}</Label>
+                {Object.entries(dashboardColors).map(([key, value]) => (
+                  <div key={key} className="space-y-2">
+                    <Label htmlFor={key} className="capitalize">
+                      {key.replace(/([A-Z])/g, ' $1').trim()}
+                    </Label>
+                    <div className="flex items-center gap-4">
                       <Input
                         id={key}
                         type="color"
                         value={value}
-                        onChange={(e) => handleColorChange(key, e.target.value)}
+                        onChange={(e) => handleDashboardColorChange(key, e.target.value)}
                         className="w-16 h-8 p-0"
                       />
                       <Input
                         type="text"
                         value={value}
-                        onChange={(e) => handleColorChange(key, e.target.value)}
-                        className="w-24"
+                        onChange={(e) => handleDashboardColorChange(key, e.target.value)}
+                        className="w-32"
                       />
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </Card>
           </TabsContent>
 
-          <TabsContent value="chatbot">
+          <TabsContent value="presets">
             <Card className="p-6">
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold mb-4">Chatbot Settings</h3>
-                <Label htmlFor="chatbot-enabled">Enable Chatbot</Label>
-                <Switch id="chatbot-enabled" />
-                <Label htmlFor="chatbot-welcome-message">Welcome Message</Label>
-                <Input id="chatbot-welcome-message" type="text" placeholder="Type your welcome message here..." />
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <Button onClick={() => applyDashboardPreset('default')}>Default</Button>
+                <Button onClick={() => applyDashboardPreset('dark')}>Dark</Button>
+                <Button onClick={() => applyDashboardPreset('professional')}>Professional</Button>
+                <Button onClick={() => applyDashboardPreset('modern')}>Modern</Button>
+              </div>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="effects">
+            <Card className="p-6 space-y-6">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="dark-mode">Dark Mode</Label>
+                <Switch
+                  id="dark-mode"
+                  checked={darkMode}
+                  onCheckedChange={setDarkMode}
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <Label htmlFor="glass-effect">Glass Effect</Label>
+                <Switch
+                  id="glass-effect"
+                  checked={glassEffect}
+                  onCheckedChange={setGlassEffect}
+                />
               </div>
             </Card>
           </TabsContent>
