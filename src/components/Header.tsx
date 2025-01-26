@@ -45,9 +45,9 @@ ListItem.displayName = "ListItem";
 
 export const Header = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-lg border-b border-white/10 shadow-xl">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center gap-2">
             <Logo />
           </Link>
@@ -55,7 +55,7 @@ export const Header = () => {
           <NavigationMenu className="hidden lg:flex">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <Link to="/" className="text-foreground hover:text-primary px-4 py-2 flex items-center gap-2">
+                <Link to="/" className="text-white hover:text-secondary px-4 py-2 flex items-center gap-2">
                   <Home className="w-4 h-4" />
                   Home
                 </Link>
@@ -115,22 +115,21 @@ export const Header = () => {
                   Contact
                 </Link>
               </NavigationMenuItem>
-
             </NavigationMenuList>
           </NavigationMenu>
 
           <div className="flex items-center gap-4">
-            <Link to="/contact" className="text-foreground hover:text-primary hidden md:flex items-center gap-2">
+            <Link to="/contact" className="text-white hover:text-secondary hidden md:flex items-center gap-2">
               <Phone className="w-4 h-4" />
               <span>1-800-555-0123</span>
             </Link>
-            <Link to="/contact" className="text-foreground hover:text-primary hidden md:flex items-center gap-2">
+            <Link to="/contact" className="text-white hover:text-secondary hidden md:flex items-center gap-2">
               <Mail className="w-4 h-4" />
               <span>info@example.com</span>
             </Link>
             <Link 
               to="/quote" 
-              className="btn btn-primary"
+              className="bg-secondary text-primary px-6 py-3 rounded font-semibold hover:bg-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
             >
               Get Quote
             </Link>

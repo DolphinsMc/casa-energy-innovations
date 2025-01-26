@@ -47,11 +47,9 @@ export const Services = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gradient">
-            Our Services
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Comprehensive renewable energy solutions for your home
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-primary">CASA Services</h2>
+          <p className="text-lg text-gray-800 max-w-2xl mx-auto">
+            Comprehensive renewable energy solutions for your home or business
           </p>
         </motion.div>
 
@@ -63,7 +61,7 @@ export const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="glass-card group hover:scale-105 transition-transform duration-300"
+              className="glass-card p-8 text-center group hover:scale-105 transition-transform duration-300"
             >
               <motion.div 
                 className="mb-6 transform group-hover:scale-110 transition-transform duration-300"
@@ -73,7 +71,7 @@ export const Services = () => {
                 {service.icon}
               </motion.div>
               <h3 className="text-xl font-bold mb-4 text-primary">{service.title}</h3>
-              <p className="text-gray-600">{service.description}</p>
+              <p className="text-gray-800">{service.description}</p>
             </motion.div>
           ))}
         </div>
