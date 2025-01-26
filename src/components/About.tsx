@@ -4,17 +4,17 @@ import { Check, Award, Users } from "lucide-react";
 export const About = () => {
   const features = [
     {
-      icon: <Check className="w-6 h-6 text-[#FFBF00]" />,
+      icon: <Check className="w-6 h-6 text-[#28395D]" />,
       title: "Renewable Energy Expertise",
       description: "Comprehensive clean energy solutions including air source heat pumps and solar power"
     },
     {
-      icon: <Award className="w-6 h-6 text-[#FFBF00]" />,
+      icon: <Award className="w-6 h-6 text-[#28395D]" />,
       title: "Government Grant Assistance",
       description: "£7,500 grant available for new heating systems - we handle all paperwork"
     },
     {
-      icon: <Users className="w-6 h-6 text-[#FFBF00]" />,
+      icon: <Users className="w-6 h-6 text-[#28395D]" />,
       title: "Expert Installation",
       description: "Professional installation by certified specialists with full warranty"
     }
@@ -33,7 +33,7 @@ export const About = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-primary">
-            Why Choose <span className="text-[#FFBF00]">CASA</span>?
+            Why Choose <span className="text-[#28395D]">CASA</span>?
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             At CASA Contracts, we are dedicated to providing renewable energy solutions tailored to meet your needs.
