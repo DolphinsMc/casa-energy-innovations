@@ -9,13 +9,15 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { Home, Settings, Phone, FileText, Users, Lightbulb, Shield, Award, BarChart } from "lucide-react";
+import { Package, Truck, Building, Phone, Mail, User, FileText, Home, Tool, Shield, Award, HelpCircle } from "lucide-react";
 import React from "react";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
+  React.ComponentPropsWithoutRef<"a"> & {
+    icon?: React.ComponentType<any>;
+  }
+>(({ className, title, children, icon: Icon, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -28,7 +30,7 @@ const ListItem = React.forwardRef<
           {...props}
         >
           <div className="text-sm font-medium leading-none flex items-center gap-2">
-            {props.icon && <props.icon className="w-4 h-4" />}
+            {Icon && <Icon className="w-4 h-4" />}
             {title}
           </div>
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
@@ -43,83 +45,95 @@ ListItem.displayName = "ListItem";
 
 export const Header = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-primary/80 backdrop-blur-lg border-b border-white/10 shadow-xl">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-lg border-b border-white/10 shadow-xl">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center gap-2">
             <Logo />
           </Link>
           
-          <NavigationMenu className="hidden md:flex">
+          <NavigationMenu className="hidden lg:flex">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-white hover:bg-white/10 shadow-lg hover:shadow-xl transition-all duration-300">
-                  Services
+                <Link to="/" className="text-white hover:text-secondary px-4 py-2 flex items-center gap-2">
+                  <Home className="w-4 h-4" />
+                  Home
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="bg-transparent text-white hover:bg-white/10">
+                  Products
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    <ListItem href="/electrician" title="Electrical Services" icon={Lightbulb}>
-                      Professional electrical installations and repairs
+                    <ListItem href="/building-materials" title="Building Materials" icon={Building}>
+                      Quality construction supplies
                     </ListItem>
-                    <ListItem href="/plumber" title="Plumbing Services" icon={Settings}>
-                      Expert plumbing solutions for your home
+                    <ListItem href="/tools" title="Tools & Equipment" icon={Tool}>
+                      Professional grade tools
                     </ListItem>
-                    <ListItem href="/tile" title="Tile Installation" icon={Home}>
-                      Beautiful tile work for any space
+                    <ListItem href="/delivery" title="Delivery Services" icon={Truck}>
+                      Fast and reliable shipping
                     </ListItem>
-                    <ListItem href="/bathroom" title="Bathroom Remodeling" icon={Settings}>
-                      Complete bathroom renovation services
-                    </ListItem>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-white hover:bg-white/10 shadow-lg hover:shadow-xl transition-all duration-300">
-                  Company
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4">
-                    <ListItem href="/about" title="About Us" icon={Users}>
-                      Learn about our mission and values
-                    </ListItem>
-                    <ListItem href="/blog" title="Blog" icon={FileText}>
-                      Latest news and industry insights
-                    </ListItem>
-                    <ListItem href="/contact" title="Contact" icon={Phone}>
-                      Get in touch with our team
+                    <ListItem href="/packages" title="Supply Packages" icon={Package}>
+                      Complete project solutions
                     </ListItem>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-white hover:bg-white/10 shadow-lg hover:shadow-xl transition-all duration-300">
-                  Resources
+                <NavigationMenuTrigger className="bg-transparent text-white hover:bg-white/10">
+                  Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4">
-                    <ListItem href="/case-studies" title="Case Studies" icon={BarChart}>
-                      Explore our success stories
-                    </ListItem>
-                    <ListItem href="/certifications" title="Certifications" icon={Award}>
-                      Our professional qualifications
+                    <ListItem href="/consultation" title="Expert Consultation" icon={HelpCircle}>
+                      Professional guidance for your project
                     </ListItem>
                     <ListItem href="/warranty" title="Warranty" icon={Shield}>
                       Our guarantee to you
                     </ListItem>
+                    <ListItem href="/support" title="Support" icon={Tool}>
+                      Technical assistance
+                    </ListItem>
                   </ul>
                 </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link to="/about" className="text-white hover:text-secondary px-4 py-2 flex items-center gap-2">
+                  <FileText className="w-4 h-4" />
+                  About
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link to="/contact" className="text-white hover:text-secondary px-4 py-2 flex items-center gap-2">
+                  <Phone className="w-4 h-4" />
+                  Contact
+                </Link>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
 
-          <Link 
-            to="/contact" 
-            className="bg-secondary text-primary px-4 py-2 rounded-md font-semibold hover:bg-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl"
-          >
-            Get Quote
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link to="/contact" className="text-white hover:text-secondary hidden md:flex items-center gap-2">
+              <Phone className="w-4 h-4" />
+              <span>1-800-555-0123</span>
+            </Link>
+            <Link to="/contact" className="text-white hover:text-secondary hidden md:flex items-center gap-2">
+              <Mail className="w-4 h-4" />
+              <span>info@example.com</span>
+            </Link>
+            <Link 
+              to="/quote" 
+              className="bg-secondary text-primary px-6 py-3 rounded font-semibold hover:bg-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+            >
+              Get Quote
+            </Link>
+          </div>
         </div>
       </div>
     </header>
