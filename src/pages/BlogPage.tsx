@@ -16,12 +16,12 @@ interface BlogPost {
   author: string;
   category: string;
   readTime: string;
+  image?: string;
 }
 
 // Generate 100 blog posts
 const generateBlogPosts = (): BlogPost[] => {
   const categories = ["Heat Pumps", "Solar Energy", "Energy Efficiency", "Green Technology", "Sustainability"];
-  const authors = ["John Smith", "Sarah Johnson", "Mike Williams", "Emma Davis", "Alex Turner"];
   
   return Array.from({ length: 100 }, (_, i) => ({
     id: i + 1,
@@ -59,9 +59,10 @@ const generateBlogPosts = (): BlogPost[] => {
       month: "long",
       day: "numeric",
     }),
-    author: authors[i % authors.length],
+    author: "RudyBtz",
     category: categories[i % categories.length],
     readTime: `${(i % 3) + 4} min read`,
+    image: "/placeholder.svg" // Using placeholder image
   }));
 };
 
@@ -95,7 +96,15 @@ const BlogPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index % 9 * 0.1 }}
             >
-              <Card className="group hover:shadow-xl transition-all duration-300 bg-background/60 backdrop-blur-lg border-primary/10 hover:border-primary/20">
+              <Card className="group hover:shadow-xl transition-all duration-300 bg-background/60 backdrop-blur-lg border-primary/10 hover:border-primary/20 overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={post.image} 
+                    alt={post.title}
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+                </div>
                 <CardHeader className="space-y-4">
                   <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                     <Calendar className="w-4 h-4" />
