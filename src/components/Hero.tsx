@@ -1,13 +1,13 @@
 import { ArrowRight, Home } from "lucide-react";
 import { motion } from "framer-motion";
 
-const floatingIcons = Array(5).fill(null);
+const floatingIcons = Array(3).fill(null);
 
 export const Hero = () => {
   return (
-    <section className="min-h-screen relative overflow-hidden pt-20">
+    <section className="min-h-[80vh] relative overflow-hidden pt-20">
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-primary/50 z-0" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/95 to-white/50 z-0" />
         <img
           src="/lovable-uploads/afc0f047-056f-4667-abe3-611dc5812d99.png"
           alt="Renewable Energy"
@@ -19,23 +19,23 @@ export const Hero = () => {
       {floatingIcons.map((_, index) => (
         <motion.div
           key={index}
-          className="absolute text-secondary/30"
+          className="absolute text-primary/20"
           initial={{ y: "100vh" }}
           animate={{
             y: "-100vh",
-            x: [0, Math.random() * 100 - 50],
+            x: [0, Math.random() * 50 - 25],
           }}
           transition={{
-            duration: 15 + Math.random() * 10,
+            duration: 20 + Math.random() * 10,
             repeat: Infinity,
             delay: index * 2,
           }}
           style={{
             left: `${Math.random() * 100}%`,
-            fontSize: `${Math.random() * 2 + 1}rem`,
+            fontSize: `${Math.random() * 1.5 + 1}rem`,
           }}
         >
-          <Home className="w-12 h-12" />
+          <Home className="w-8 h-8" />
         </motion.div>
       ))}
 
@@ -47,20 +47,20 @@ export const Hero = () => {
           className="max-w-4xl mx-auto text-center"
         >
           <motion.h1 
-            className="text-5xl md:text-7xl font-bold mb-6 text-white"
+            className="text-4xl md:text-6xl font-bold mb-6 text-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Renewable Energy Solutions
+            Professional Home Solutions
           </motion.h1>
           <motion.p 
-            className="text-xl md:text-2xl mb-8 text-white/90"
+            className="text-xl md:text-2xl mb-8 text-muted-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Leading the way in sustainable energy with expert air source heat pump solutions
+            Expert air source heat pump solutions for your home
           </motion.p>
           <motion.div 
             className="flex gap-4 justify-center mb-16"
@@ -70,11 +70,7 @@ export const Hero = () => {
           >
             <a 
               href="#contact" 
-              className="glass group px-8 py-4 rounded-lg font-semibold 
-                       bg-secondary/80 text-primary hover:bg-secondary 
-                       transition-all duration-300 shadow-lg hover:shadow-secondary/50
-                       hover:scale-105 flex items-center gap-2
-                       border border-white/20 backdrop-blur-sm"
+              className="glass btn btn-primary group"
             >
               Get Started Today
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

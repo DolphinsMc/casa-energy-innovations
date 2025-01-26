@@ -4,51 +4,45 @@
  
 @layer base {
   :root {
-    --background: 222 47% 11%;
-    --foreground: 0 0% 100%;
-    --card: 222 47% 11%;
-    --card-foreground: 0 0% 100%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 215 50% 23%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 45 93% 47%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 221 83% 53%;    /* Reliable blue */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217 91% 60%;  /* Accent blue */
     --secondary-foreground: 222 47% 11%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 45 93% 47%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
     --accent-foreground: 222 47% 11%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 45 93% 47%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221 83% 53%;
     --radius: 0.5rem;
   }
 
   .glass {
-    @apply backdrop-blur-md bg-white/10 border border-white/20;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    @apply backdrop-blur-md bg-white/90 border border-white/20;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   .glass-card {
-    @apply backdrop-blur-md bg-white/10 border border-white/20 rounded-lg p-6
+    @apply backdrop-blur-md bg-white/95 border border-gray-200 rounded-lg p-6
            transition-all duration-300 hover:shadow-lg;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  }
-
-  .neon-glow {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                 0 0 20px rgba(255, 255, 255, 0.8),
-                 0 0 30px rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary to-secondary/70;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
   }
 
   .hover-scale {
-    @apply transition-transform duration-300 hover:scale-105;
+    @apply transition-transform duration-300 hover:scale-102;
   }
 }
 
@@ -58,28 +52,24 @@
   }
   body {
     @apply bg-background text-foreground;
-    transition: background-color var(--animation-speed), color var(--animation-speed);
   }
   
   .glass {
-    @apply shadow-lg hover:shadow-xl transition-all duration-300;
-    background: var(--card-background);
-    border: 1px solid var(--card-border);
-    box-shadow: var(--card-shadow);
-    backdrop-filter: var(--card-backdrop);
-    -webkit-backdrop-filter: var(--card-backdrop);
+    @apply shadow-md hover:shadow-lg transition-all duration-300;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
   
   .button-shadow {
-    @apply shadow-lg hover:shadow-xl transition-all duration-300;
+    @apply shadow-md hover:shadow-lg transition-all duration-300;
   }
   
   .card-shadow {
-    @apply shadow-lg hover:shadow-xl transition-all duration-300;
+    @apply shadow-md hover:shadow-lg transition-all duration-300;
   }
 
   .btn {
-    @apply px-6 py-3 rounded font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2;
+    @apply px-4 py-2 rounded-md font-medium transition-all duration-300 shadow-md hover:shadow-lg flex items-center gap-2;
   }
 
   .btn-primary {
@@ -87,6 +77,6 @@
   }
 
   .btn-secondary {
-    @apply bg-secondary text-primary hover:bg-secondary/90;
+    @apply bg-secondary text-white hover:bg-secondary/90;
   }
 }
