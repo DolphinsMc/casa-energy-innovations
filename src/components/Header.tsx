@@ -9,7 +9,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { Package, Truck, Building, Phone, Mail, User, FileText, Home, Tool, Shield, Award, HelpCircle } from "lucide-react";
+import { Package, Truck, Building, Phone, Mail, User, FileText, Home, Wrench, Shield, Award, HelpCircle } from "lucide-react";
 import React from "react";
 
 const ListItem = React.forwardRef<
@@ -70,7 +70,7 @@ export const Header = () => {
                     <ListItem href="/building-materials" title="Building Materials" icon={Building}>
                       Quality construction supplies
                     </ListItem>
-                    <ListItem href="/tools" title="Tools & Equipment" icon={Tool}>
+                    <ListItem href="/tools" title="Tools & Equipment" icon={Wrench}>
                       Professional grade tools
                     </ListItem>
                     <ListItem href="/delivery" title="Delivery Services" icon={Truck}>
@@ -95,7 +95,7 @@ export const Header = () => {
                     <ListItem href="/warranty" title="Warranty" icon={Shield}>
                       Our guarantee to you
                     </ListItem>
-                    <ListItem href="/support" title="Support" icon={Tool}>
+                    <ListItem href="/support" title="Support" icon={Wrench}>
                       Technical assistance
                     </ListItem>
                   </ul>
