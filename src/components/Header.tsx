@@ -12,6 +12,10 @@ export const Header = () => {
             <a href="#about" className="text-white hover:text-secondary transition-colors">About</a>
             <a href="#blog" className="text-white hover:text-secondary transition-colors">Blog</a>
             <a href="#contact" className="text-white hover:text-secondary transition-colors">Contact</a>
+            <a href="#dashboard" className="text-white hover:text-secondary transition-colors flex items-center gap-1">
+              Dashboard
+              <span className="text-xs bg-secondary/20 px-2 py-0.5 rounded-full">Admin</span>
+            </a>
           </nav>
           <a 
             href="#contact" 
