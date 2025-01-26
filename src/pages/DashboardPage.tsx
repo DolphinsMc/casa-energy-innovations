@@ -3,143 +3,135 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Header } from "@/components/Header";
+import { Pencil, Trash2, Plus } from "lucide-react";
+
+interface BlogPost {
+  id: string;
+  title: string;
+  content: string;
+  status: "draft" | "published";
+  date: string;
+}
 
 const DashboardPage = () => {
   const { toast } = useToast();
   const [darkMode, setDarkMode] = useState(false);
   const [glassEffect, setGlassEffect] = useState(false);
   
-  const [dashboardColors, setDashboardColors] = useState({
-    cardBackground: "#ffffff",
-    cardText: "#000000",
-    headerBackground: "#f8f9fa",
-    sidebarBackground: "#ffffff",
-    buttonPrimary: "#0066cc",
-    buttonSecondary: "#6c757d",
-    chartColors: ["#4e79a7", "#f28e2c", "#e15759", "#76b7b2", "#59a14f"],
-    tabsBackground: "#ffffff",
-    tabsActive: "#e6f3ff"
-  });
-
-  const handleDashboardColorChange = (colorKey: string, value: string) => {
-    setDashboardColors(prev => ({
-      ...prev,
-      [colorKey]: value
-    }));
-    
-    // Fix: Type assertion to HTMLElement
-    const element = document.querySelector('[data-dashboard-element]') as HTMLElement;
-    if (element) {
-      element.style.setProperty(`--dashboard-${colorKey}`, value);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([
+    {
+      id: "1",
+      title: "The Future of Renewable Energy",
+      content: "Lorem ipsum...",
+      status: "published",
+      date: "2024-03-15"
+    },
+    {
+      id: "2",
+      title: "Heat Pump Installation Guide",
+      content: "Lorem ipsum...",
+      status: "draft",
+      date: "2024-03-14"
     }
-    
-    console.log(`Dashboard color ${colorKey} updated to ${value}`);
+  ]);
+
+  const colorPresets = {
+    default: {
+      primary: "#28395D",
+      secondary: "#33C3F0",
+      accent: "#F97316",
+      background: "#FFFFFF"
+    },
+    dark: {
+      primary: "#1A1F2C",
+      secondary: "#33C3F0",
+      accent: "#F97316",
+      background: "#0F1218"
+    },
+    modern: {
+      primary: "#2B4C7E",
+      secondary: "#567EBB",
+      accent: "#606D80",
+      background: "#F0F4F8"
+    }
   };
 
-  const handleSaveChanges = () => {
+  const handleColorPresetChange = (preset: keyof typeof colorPresets) => {
+    // Apply color preset
+    const colors = colorPresets[preset];
+    document.documentElement.style.setProperty('--primary', colors.primary);
+    document.documentElement.style.setProperty('--secondary', colors.secondary);
+    document.documentElement.style.setProperty('--accent', colors.accent);
+    document.documentElement.style.setProperty('--background', colors.background);
+    
     toast({
-      title: "Changes Saved",
-      description: "Your dashboard appearance settings have been saved successfully.",
+      title: "Theme Applied",
+      description: `${preset} theme has been applied successfully.`
     });
-    console.log("Dashboard settings saved:", dashboardColors);
   };
 
-  const applyDashboardPreset = (preset: 'default' | 'dark' | 'professional' | 'modern') => {
-    const presets = {
-      default: {
-        cardBackground: "#ffffff",
-        cardText: "#000000",
-        headerBackground: "#f8f9fa",
-        sidebarBackground: "#ffffff",
-        buttonPrimary: "#0066cc",
-        buttonSecondary: "#6c757d",
-        chartColors: ["#4e79a7", "#f28e2c", "#e15759", "#76b7b2", "#59a14f"],
-        tabsBackground: "#ffffff",
-        tabsActive: "#e6f3ff"
-      },
-      dark: {
-        cardBackground: "#2d3748",
-        cardText: "#ffffff",
-        headerBackground: "#1a202c",
-        sidebarBackground: "#2d3748",
-        buttonPrimary: "#4299e1",
-        buttonSecondary: "#718096",
-        chartColors: ["#63b3ed", "#f6ad55", "#fc8181", "#9ae6b4", "#b794f4"],
-        tabsBackground: "#2d3748",
-        tabsActive: "#4a5568"
-      },
-      professional: {
-        cardBackground: "#f7fafc",
-        cardText: "#2d3748",
-        headerBackground: "#edf2f7",
-        sidebarBackground: "#f7fafc",
-        buttonPrimary: "#3182ce",
-        buttonSecondary: "#718096",
-        chartColors: ["#2b6cb0", "#dd6b20", "#c53030", "#2f855a", "#6b46c1"],
-        tabsBackground: "#f7fafc",
-        tabsActive: "#e2e8f0"
-      },
-      modern: {
-        cardBackground: "#ffffff",
-        cardText: "#1a202c",
-        headerBackground: "#f7fafc",
-        sidebarBackground: "#ffffff",
-        buttonPrimary: "#5a67d8",
-        buttonSecondary: "#718096",
-        chartColors: ["#667eea", "#f6ad55", "#fc8181", "#68d391", "#b794f4"],
-        tabsBackground: "#ffffff",
-        tabsActive: "#ebf4ff"
-      }
-    };
-
-    setDashboardColors(presets[preset]);
-    
+  const handleDeletePost = (id: string) => {
+    setBlogPosts(posts => posts.filter(post => post.id !== id));
     toast({
-      title: "Dashboard Theme Applied",
-      description: `${preset.charAt(0).toUpperCase() + preset.slice(1)} dashboard theme has been applied.`
+      title: "Post Deleted",
+      description: "The blog post has been deleted successfully."
     });
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1A1F2C] to-[#0F1218]" data-dashboard-element>
+    <div className="min-h-screen bg-gradient-to-b from-background to-background/80">
       <Header />
       <main className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8 text-white">Dashboard Appearance</h1>
+        <h1 className="text-4xl font-bold mb-8 text-primary">Dashboard</h1>
         
-        <Tabs defaultValue="colors" className="space-y-4">
-          <TabsList className="bg-[#2A2F3C] border border-gray-700">
-            <TabsTrigger value="colors" className="text-gray-200 data-[state=active]:bg-[#F97316] data-[state=active]:text-white">Colors</TabsTrigger>
-            <TabsTrigger value="presets" className="text-gray-200 data-[state=active]:bg-[#F97316] data-[state=active]:text-white">Presets</TabsTrigger>
-            <TabsTrigger value="effects" className="text-gray-200 data-[state=active]:bg-[#F97316] data-[state=active]:text-white">Effects</TabsTrigger>
+        <Tabs defaultValue="blog" className="space-y-4">
+          <TabsList>
+            <TabsTrigger value="blog">Blog Management</TabsTrigger>
+            <TabsTrigger value="appearance">Appearance</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="colors">
-            <Card className="bg-[#2A2F3C]/80 border-gray-700 p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {Object.entries(dashboardColors).map(([key, value]) => (
-                  <div key={key} className="space-y-2">
-                    <Label htmlFor={key} className="capitalize text-gray-200">
-                      {key.replace(/([A-Z])/g, ' $1').trim()}
-                    </Label>
-                    <div className="flex items-center gap-4">
-                      <Input
-                        id={key}
-                        type="color"
-                        value={value}
-                        onChange={(e) => handleDashboardColorChange(key, e.target.value)}
-                        className="w-16 h-8 p-0 bg-transparent border-gray-700"
-                      />
-                      <Input
-                        type="text"
-                        value={value}
-                        onChange={(e) => handleDashboardColorChange(key, e.target.value)}
-                        className="w-32 bg-[#1A1F2C] border-gray-700 text-gray-200"
-                      />
+          <TabsContent value="blog">
+            <Card className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-semibold text-primary">Blog Posts</h2>
+                <Button className="bg-primary hover:bg-primary/90">
+                  <Plus className="w-4 h-4 mr-2" />
+                  New Post
+                </Button>
+              </div>
+
+              <div className="space-y-4">
+                {blogPosts.map((post) => (
+                  <div
+                    key={post.id}
+                    className="flex items-center justify-between p-4 rounded-lg border"
+                  >
+                    <div>
+                      <h3 className="font-medium text-primary">{post.title}</h3>
+                      <div className="flex gap-4 text-sm text-muted-foreground">
+                        <span>{post.date}</span>
+                        <span className={`capitalize ${
+                          post.status === 'published' ? 'text-green-500' : 'text-yellow-500'
+                        }`}>
+                          {post.status}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="ghost" size="icon">
+                        <Pencil className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleDeletePost(post.id)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
                     </div>
                   </div>
                 ))}
@@ -147,49 +139,47 @@ const DashboardPage = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="presets">
-            <Card className="bg-[#2A2F3C]/80 border-gray-700 p-6">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Button onClick={() => applyDashboardPreset('default')} className="bg-[#F97316] text-white hover:bg-[#F97316]/90">Default</Button>
-                <Button onClick={() => applyDashboardPreset('dark')} className="bg-[#F97316] text-white hover:bg-[#F97316]/90">Dark</Button>
-                <Button onClick={() => applyDashboardPreset('professional')} className="bg-[#F97316] text-white hover:bg-[#F97316]/90">Professional</Button>
-                <Button onClick={() => applyDashboardPreset('modern')} className="bg-[#F97316] text-white hover:bg-[#F97316]/90">Modern</Button>
-              </div>
-            </Card>
-          </TabsContent>
+          <TabsContent value="appearance">
+            <Card className="p-6">
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-2xl font-semibold text-primary mb-4">Color Presets</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {Object.entries(colorPresets).map(([name]) => (
+                      <Button
+                        key={name}
+                        onClick={() => handleColorPresetChange(name as keyof typeof colorPresets)}
+                        className="capitalize"
+                      >
+                        {name}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
 
-          <TabsContent value="effects">
-            <Card className="bg-[#2A2F3C]/80 border-gray-700 p-6 space-y-6">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="dark-mode" className="text-gray-200">Dark Mode</Label>
-                <Switch
-                  id="dark-mode"
-                  checked={darkMode}
-                  onCheckedChange={setDarkMode}
-                />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <Label htmlFor="glass-effect" className="text-gray-200">Glass Effect</Label>
-                <Switch
-                  id="glass-effect"
-                  checked={glassEffect}
-                  onCheckedChange={setGlassEffect}
-                />
+                <div className="space-y-4">
+                  <h2 className="text-2xl font-semibold text-primary">Effects</h2>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="dark-mode">Dark Mode</Label>
+                    <Switch
+                      id="dark-mode"
+                      checked={darkMode}
+                      onCheckedChange={setDarkMode}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="glass-effect">Glass Effect</Label>
+                    <Switch
+                      id="glass-effect"
+                      checked={glassEffect}
+                      onCheckedChange={setGlassEffect}
+                    />
+                  </div>
+                </div>
               </div>
             </Card>
           </TabsContent>
         </Tabs>
-
-        <div className="mt-8 flex justify-end">
-          <Button 
-            onClick={handleSaveChanges}
-            className="px-6 bg-[#F97316] text-white hover:bg-[#F97316]/90"
-            size="lg"
-          >
-            Save Changes
-          </Button>
-        </div>
       </main>
     </div>
   );

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Input } from "./ui/input";
-import { MessageCircle, X, Minimize2, Maximize2 } from "lucide-react";
+import { MessageCircle, X, Minimize2, Maximize2, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "./ui/use-toast";
 
@@ -34,7 +34,6 @@ export const ChatBot = () => {
     setIsLoading(true);
 
     try {
-      console.log("Sending message to Deepseek API");
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
@@ -44,7 +43,7 @@ export const ChatBot = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to get response from Deepseek");
+        throw new Error("Failed to get response");
       }
 
       const data = await response.json();
@@ -59,7 +58,7 @@ export const ChatBot = () => {
       console.error("Error sending message:", error);
       toast({
         title: "Error",
-        description: "Failed to get response from the chatbot. Please try again.",
+        description: "Failed to get response. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -105,7 +104,7 @@ export const ChatBot = () => {
                 
                 {!isMinimized && (
                   <>
-                    <div className="h-[300px] overflow-y-auto mb-4 space-y-4">
+                    <div className="h-[300px] overflow-y-auto mb-4 space-y-4 scrollbar-thin scrollbar-thumb-primary/10">
                       {messages.map((message, index) => (
                         <div
                           key={index}
@@ -126,8 +125,9 @@ export const ChatBot = () => {
                       ))}
                       {isLoading && (
                         <div className="flex justify-start">
-                          <div className="bg-muted p-3 rounded-lg">
-                            Typing...
+                          <div className="bg-muted p-3 rounded-lg flex items-center gap-2">
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            <span>Thinking...</span>
                           </div>
                         </div>
                       )}
@@ -138,6 +138,7 @@ export const ChatBot = () => {
                         onChange={(e) => setInput(e.target.value)}
                         placeholder="Type your message..."
                         onKeyPress={(e) => e.key === "Enter" && handleSend()}
+                        className="bg-background/50"
                       />
                       <Button onClick={handleSend} disabled={isLoading}>
                         Send
@@ -153,7 +154,7 @@ export const ChatBot = () => {
       
       <Button
         onClick={() => setIsOpen(true)}
-        className="rounded-full h-12 w-12 shadow-lg hover:shadow-xl transition-shadow"
+        className="rounded-full h-12 w-12 shadow-lg hover:shadow-xl transition-shadow bg-primary hover:bg-primary/90"
       >
         <MessageCircle className="h-6 w-6" />
       </Button>
