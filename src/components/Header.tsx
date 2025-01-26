@@ -10,6 +10,7 @@ export const Header = () => {
             <a href="#home" className="text-white hover:text-secondary transition-colors">Home</a>
             <a href="#services" className="text-white hover:text-secondary transition-colors">Services</a>
             <a href="#about" className="text-white hover:text-secondary transition-colors">About</a>
+            <a href="#blog" className="text-white hover:text-secondary transition-colors">Blog</a>
             <a href="#contact" className="text-white hover:text-secondary transition-colors">Contact</a>
           </nav>
           <a 
