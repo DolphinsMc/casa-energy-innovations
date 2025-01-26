@@ -7,6 +7,8 @@ import BlogPage from "./pages/BlogPage";
 import DashboardPage from "./pages/DashboardPage";
 import ElectricianPage from "./pages/ElectricianPage";
 import PlumberPage from "./pages/PlumberPage";
+import TilePage from "./pages/TilePage";
+import BathroomPage from "./pages/BathroomPage";
 import { ChatBot } from "./components/ChatBot";
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/electrician" element={<ElectricianPage />} />
         <Route path="/plumber" element={<PlumberPage />} />
+        <Route path="/tile" element={<TilePage />} />
+        <Route path="/bathroom" element={<BathroomPage />} />
       </Routes>
       <ChatBot />
     </Router>
