@@ -14,7 +14,6 @@ const DashboardPage = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [glassEffect, setGlassEffect] = useState(false);
   
-  // Dashboard-specific color states
   const [dashboardColors, setDashboardColors] = useState({
     cardBackground: "#ffffff",
     cardText: "#000000",
@@ -40,11 +39,14 @@ const DashboardPage = () => {
     }
     
     console.log(`Dashboard color ${colorKey} updated to ${value}`);
-    
+  };
+
+  const handleSaveChanges = () => {
     toast({
-      title: "Color Updated",
-      description: `Dashboard ${colorKey} color has been updated.`
+      title: "Changes Saved",
+      description: "Your dashboard appearance settings have been saved successfully.",
     });
+    console.log("Dashboard settings saved:", dashboardColors);
   };
 
   const applyDashboardPreset = (preset: 'default' | 'dark' | 'professional' | 'modern') => {
@@ -178,6 +180,17 @@ const DashboardPage = () => {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Add Save Changes button */}
+        <div className="mt-8 flex justify-end">
+          <Button 
+            onClick={handleSaveChanges}
+            className="px-6"
+            size="lg"
+          >
+            Save Changes
+          </Button>
+        </div>
       </main>
     </div>
   );
