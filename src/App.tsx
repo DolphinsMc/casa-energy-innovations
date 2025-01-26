@@ -5,6 +5,8 @@ import ServicesPage from "./pages/ServicesPage";
 import ContactPage from "./pages/ContactPage";
 import BlogPage from "./pages/BlogPage";
 import DashboardPage from "./pages/DashboardPage";
+import ElectricianPage from "./pages/ElectricianPage";
+import PlumberPage from "./pages/PlumberPage";
 import { ChatBot } from "./components/ChatBot";
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/electrician" element={<ElectricianPage />} />
+        <Route path="/plumber" element={<PlumberPage />} />
       </Routes>
       <ChatBot />
     </Router>

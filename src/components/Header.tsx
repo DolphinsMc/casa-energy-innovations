@@ -12,6 +12,8 @@ export const Header = () => {
           <nav className="hidden md:flex items-center gap-6">
             <Link to="/" className="text-white hover:text-secondary transition-colors">Home</Link>
             <Link to="/services" className="text-white hover:text-secondary transition-colors">Services</Link>
+            <Link to="/electrician" className="text-white hover:text-secondary transition-colors">Electrician</Link>
+            <Link to="/plumber" className="text-white hover:text-secondary transition-colors">Plumber</Link>
             <Link to="/about" className="text-white hover:text-secondary transition-colors">About</Link>
             <Link to="/blog" className="text-white hover:text-secondary transition-colors">Blog</Link>
             <Link to="/contact" className="text-white hover:text-secondary transition-colors">Contact</Link>
