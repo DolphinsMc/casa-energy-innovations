@@ -9,27 +9,65 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 
 const DashboardPage = () => {
   const [blogTopics, setBlogTopics] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [chatbotName, setChatbotName] = useState("CASA Assistant");
   const [chatbotEnabled, setChatbotEnabled] = useState(true);
+  const { toast } = useToast();
 
   const handleGeneratePosts = async () => {
+    if (!blogTopics.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter some topics or keywords",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsGenerating(true);
     try {
-      // TODO: Implement Deepseek API integration for content generation
-      console.log("Generating posts using Deepseek API for topics:", blogTopics);
-      setTimeout(() => setIsGenerating(false), 2000);
+      console.log("Generating posts for topics:", blogTopics);
+      const response = await fetch("/api/generate-posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ topics: blogTopics }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to generate posts");
+      }
+
+      const data = await response.json();
+      console.log("Generated posts:", data);
+      
+      toast({
+        title: "Success",
+        description: "Blog posts generated successfully!",
+      });
     } catch (error) {
       console.error("Error generating posts:", error);
+      toast({
+        title: "Error",
+        description: "Failed to generate blog posts. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
       setIsGenerating(false);
     }
   };
 
   const handleShareToFacebook = () => {
     console.log("Sharing to Facebook");
+    toast({
+      title: "Coming Soon",
+      description: "Facebook sharing integration will be available soon!",
+    });
   };
 
   return (

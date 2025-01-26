@@ -4,6 +4,7 @@ import { Card } from "./ui/card";
 import { Input } from "./ui/input";
 import { MessageCircle, X, Minimize2, Maximize2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useToast } from "./ui/use-toast";
 
 interface Message {
   content: string;
@@ -17,6 +18,7 @@ export const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -32,21 +34,35 @@ export const ChatBot = () => {
     setIsLoading(true);
 
     try {
-      // TODO: Implement Deepseek API call here
-      console.log("Sending message to Deepseek API:", input);
-      
-      // Simulate API response for now
-      setTimeout(() => {
-        const botResponse: Message = {
-          content: "This is a placeholder response. The Deepseek API integration will be implemented here.",
-          role: "assistant",
-          timestamp: new Date(),
-        };
-        setMessages((prev) => [...prev, botResponse]);
-        setIsLoading(false);
-      }, 1000);
+      console.log("Sending message to Deepseek API");
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: input }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to get response from Deepseek");
+      }
+
+      const data = await response.json();
+      const botResponse: Message = {
+        content: data.response,
+        role: "assistant",
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, botResponse]);
     } catch (error) {
       console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "Failed to get response from the chatbot. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
       setIsLoading(false);
     }
   };
