@@ -1,5 +1,7 @@
-import { ArrowRight, Package, Truck, Building } from "lucide-react";
+import { ArrowRight, Home } from "lucide-react";
 import { motion } from "framer-motion";
+
+const floatingIcons = Array(5).fill(null);
 
 export const Hero = () => {
   return (
@@ -8,68 +10,76 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-primary/50 z-0" />
         <img
           src="/lovable-uploads/afc0f047-056f-4667-abe3-611dc5812d99.png"
-          alt="Building Materials"
+          alt="Renewable Energy"
           className="w-full h-full object-cover"
         />
       </div>
+
+      {/* Floating Icons */}
+      {floatingIcons.map((_, index) => (
+        <motion.div
+          key={index}
+          className="absolute text-secondary/30"
+          initial={{ y: "100vh" }}
+          animate={{
+            y: "-100vh",
+            x: [0, Math.random() * 100 - 50],
+          }}
+          transition={{
+            duration: 15 + Math.random() * 10,
+            repeat: Infinity,
+            delay: index * 2,
+          }}
+          style={{
+            left: `${Math.random() * 100}%`,
+            fontSize: `${Math.random() * 2 + 1}rem`,
+          }}
+        >
+          <Home className="w-12 h-12" />
+        </motion.div>
+      ))}
 
       <div className="container mx-auto px-4 relative z-10 pt-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-4xl mx-auto"
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto text-center"
         >
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
-            Quality Building Supplies for Every Project
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-white/90">
-            Your trusted partner in roofing and building materials. Professional service, expert advice, and top-quality products.
-          </p>
-          <div className="flex gap-4 mb-16">
+          <motion.h1 
+            className="text-5xl md:text-7xl font-bold mb-6 text-white"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Renewable Energy Solutions
+          </motion.h1>
+          <motion.p 
+            className="text-xl md:text-2xl mb-8 text-white/90"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            Leading the way in sustainable energy with expert air source heat pump solutions
+          </motion.p>
+          <motion.div 
+            className="flex gap-4 justify-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
             <a 
-              href="#products" 
-              className="bg-secondary text-primary px-8 py-4 rounded font-semibold hover:bg-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+              href="#contact" 
+              className="glass group px-8 py-4 rounded-lg font-semibold 
+                       bg-secondary/80 text-primary hover:bg-secondary 
+                       transition-all duration-300 shadow-lg hover:shadow-secondary/50
+                       hover:scale-105 flex items-center gap-2
+                       border border-white/20 backdrop-blur-sm"
             >
-              Explore Our Products
-              <ArrowRight className="w-5 h-5" />
+              Get Started Today
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 mt-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20"
-            >
-              <Package className="w-12 h-12 text-secondary mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Quality Materials</h3>
-              <p className="text-white/80">Premium building supplies</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20"
-            >
-              <Building className="w-12 h-12 text-secondary mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Expert Advice</h3>
-              <p className="text-white/80">Professional guidance</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20"
-            >
-              <Truck className="w-12 h-12 text-secondary mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Fast Delivery</h3>
-              <p className="text-white/80">Reliable shipping</p>
-            </motion.div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
