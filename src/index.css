@@ -23,8 +23,7 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 45 100% 50%;
-    --radius: 0.5rem;
-    --animation-speed: 1s;
+    --radius: 0.5d: 1s;
   }
 
   .dark {
@@ -72,10 +71,19 @@
     transition: background-color var(--animation-speed), color var(--animation-speed);
   }
   .glass {
+    @apply shadow-lg hover:shadow-xl transition-all duration-300;
     background: var(--card-background);
     border: 1px solid var(--card-border);
     box-shadow: var(--card-shadow);
     backdrop-filter: var(--card-backdrop);
     -webkit-backdrop-filter: var(--card-backdrop);
+  }
+  
+  .button-shadow {
+    @apply shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+  
+  .card-shadow {
+    @apply shadow-lg hover:shadow-xl transition-all duration-300;
   }
 }
