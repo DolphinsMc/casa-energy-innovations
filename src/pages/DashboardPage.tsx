@@ -1,198 +1,152 @@
-import { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 import { Header } from "@/components/Header";
-import { Pencil, Trash2, Plus, List } from "lucide-react";
-import { BlogPostEditor } from "@/components/BlogPostEditor";
-
-interface BlogPost {
-  id: string;
-  title: string;
-  content: string;
-  status: "draft" | "published";
-  date: string;
-}
+import { Footer } from "@/components/Footer";
+import { motion } from "framer-motion";
+import {
+  LayoutDashboard,
+  Users,
+  Settings,
+  FileText,
+  Bell,
+  Search,
+  Plus,
+  Edit,
+  Trash2,
+  Eye,
+  Calendar,
+  Tag,
+  Filter,
+  ArrowUpDown
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const DashboardPage = () => {
-  const { toast } = useToast();
-  const [darkMode, setDarkMode] = useState(false);
-  const [glassEffect, setGlassEffect] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
-  
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([
-    {
-      id: "1",
-      title: "The Future of Renewable Energy",
-      content: "Lorem ipsum...",
-      status: "published",
-      date: "2024-03-15"
-    },
-    {
-      id: "2",
-      title: "Heat Pump Installation Guide",
-      content: "Lorem ipsum...",
-      status: "draft",
-      date: "2024-03-14"
-    }
-  ]);
-
-  const handleDeletePost = (id: string) => {
-    setBlogPosts(posts => posts.filter(post => post.id !== id));
-    toast({
-      title: "Post Deleted",
-      description: "The blog post has been deleted successfully."
-    });
-  };
-
-  const handleEditPost = (post: BlogPost) => {
-    setSelectedPost(post);
-    setIsEditing(true);
-  };
-
-  const handleCreatePost = () => {
-    setSelectedPost(null);
-    setIsEditing(true);
-  };
-
-  const handleSavePost = (post: Omit<BlogPost, 'id' | 'date'>) => {
-    if (selectedPost) {
-      // Edit existing post
-      setBlogPosts(posts =>
-        posts.map(p =>
-          p.id === selectedPost.id
-            ? { ...p, ...post }
-            : p
-        )
-      );
-      toast({
-        title: "Post Updated",
-        description: "The blog post has been updated successfully."
-      });
-    } else {
-      // Create new post
-      const newPost = {
-        ...post,
-        id: Date.now().toString(),
-        date: new Date().toISOString().split('T')[0]
-      };
-      setBlogPosts(posts => [...posts, newPost]);
-      toast({
-        title: "Post Created",
-        description: "The blog post has been created successfully."
-      });
-    }
-    setIsEditing(false);
-    setSelectedPost(null);
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-background/80">
+    <div className="min-h-screen bg-background">
       <Header />
-      <main className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8 text-primary">Dashboard</h1>
-        
-        <Tabs defaultValue="blog" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="blog">Blog Management</TabsTrigger>
-            <TabsTrigger value="appearance">Appearance</TabsTrigger>
-          </TabsList>
+      
+      <div className="container mx-auto px-4 py-8">
+        {/* Dashboard Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <LayoutDashboard className="w-8 h-8 text-primary" />
+            <h1 className="text-3xl font-bold">Dashboard</h1>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Input 
+                type="search" 
+                placeholder="Search..." 
+                className="pl-10 w-64"
+              />
+            </div>
+            <Button variant="outline" size="icon">
+              <Bell className="w-4 h-4" />
+            </Button>
+            <Button variant="outline" size="icon">
+              <Settings className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
 
-          <TabsContent value="blog">
-            <Card className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <div className="flex items-center gap-2">
-                  <List className="w-5 h-5" />
-                  <h2 className="text-2xl font-semibold text-primary">Blog Posts</h2>
-                </div>
-                <Button onClick={handleCreatePost} className="bg-primary hover:bg-primary/90">
-                  <Plus className="w-4 h-4 mr-2" />
+        {/* Main Content */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {/* Sidebar */}
+          <div className="col-span-1 space-y-2">
+            <Button variant="ghost" className="w-full justify-start">
+              <LayoutDashboard className="mr-2 w-4 h-4" />
+              Overview
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <Users className="mr-2 w-4 h-4" />
+              Customers
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <FileText className="mr-2 w-4 h-4" />
+              Blog Posts
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <Settings className="mr-2 w-4 h-4" />
+              Settings
+            </Button>
+          </div>
+
+          {/* Content Area */}
+          <div className="col-span-1 md:col-span-3 space-y-6">
+            {/* Actions Row */}
+            <div className="flex justify-between items-center">
+              <div className="flex gap-2">
+                <Button>
+                  <Plus className="mr-2 w-4 h-4" />
                   New Post
                 </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline">
+                      <Filter className="mr-2 w-4 h-4" />
+                      Filter
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>
+                      <Calendar className="mr-2 w-4 h-4" />
+                      Date
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Tag className="mr-2 w-4 h-4" />
+                      Category
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <ArrowUpDown className="mr-2 w-4 h-4" />
+                      Status
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
+            </div>
 
-              {isEditing ? (
-                <BlogPostEditor
-                  post={selectedPost}
-                  onSave={handleSavePost}
-                  onCancel={() => {
-                    setIsEditing(false);
-                    setSelectedPost(null);
-                  }}
-                />
-              ) : (
-                <div className="space-y-4">
-                  {blogPosts.map((post) => (
-                    <div
-                      key={post.id}
-                      className="flex items-center justify-between p-4 rounded-lg border"
-                    >
-                      <div>
-                        <h3 className="font-medium text-primary">{post.title}</h3>
-                        <div className="flex gap-4 text-sm text-muted-foreground">
-                          <span>{post.date}</span>
-                          <span className={`capitalize ${
-                            post.status === 'published' ? 'text-green-500' : 'text-yellow-500'
-                          }`}>
-                            {post.status}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleEditPost(post)}
-                        >
-                          <Pencil className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleDeletePost(post.id)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
+            {/* Blog Posts Grid */}
+            <div className="grid grid-cols-1 gap-4">
+              {[1, 2, 3].map((post) => (
+                <motion.div
+                  key={post}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 bg-card rounded-lg border shadow-sm"
+                >
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-semibold">Blog Post Title {post}</h3>
+                      <p className="text-sm text-muted-foreground">Last edited 2 days ago</p>
                     </div>
-                  ))}
-                </div>
-              )}
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="appearance">
-            <Card className="p-6">
-              <div className="space-y-6">
-                <div className="space-y-4">
-                  <h2 className="text-2xl font-semibold text-primary">Effects</h2>
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="dark-mode">Dark Mode</Label>
-                    <Switch
-                      id="dark-mode"
-                      checked={darkMode}
-                      onCheckedChange={setDarkMode}
-                    />
+                    <div className="flex gap-2">
+                      <Button variant="ghost" size="icon">
+                        <Eye className="w-4 h-4" />
+                      </Button>
+                      <Button variant="ghost" size="icon">
+                        <Edit className="w-4 h-4" />
+                      </Button>
+                      <Button variant="ghost" size="icon">
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="glass-effect">Glass Effect</Label>
-                    <Switch
-                      id="glass-effect"
-                      checked={glassEffect}
-                      onCheckedChange={setGlassEffect}
-                    />
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </TabsContent>
-        </Tabs>
-      </main>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <Footer />
     </div>
   );
 };
