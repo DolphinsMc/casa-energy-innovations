@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
-import { Shower, Bath, Tools, CheckCircle } from "lucide-react";
+import { Bath, Wrench, ShowerHead, CheckCircle } from "lucide-react";
 
 const BathroomPage = () => {
   return (
@@ -42,12 +42,12 @@ const BathroomPage = () => {
               description: "Full bathroom makeovers and installations"
             },
             {
-              icon: <Shower className="w-12 h-12 text-primary" />,
+              icon: <ShowerHead className="w-12 h-12 text-primary" />,
               title: "Modern Fixtures",
               description: "Latest designs in bathroom fixtures and fittings"
             },
             {
-              icon: <Tools className="w-12 h-12 text-primary" />,
+              icon: <Wrench className="w-12 h-12 text-primary" />,
               title: "Expert Installation",
               description: "Professional fitting and finishing services"
             }
