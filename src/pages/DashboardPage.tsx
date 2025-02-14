@@ -1,5 +1,4 @@
-
-import { lazy } from "react";
+import { lazy, useState } from "react";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import {
   LayoutDashboard,
@@ -15,10 +14,117 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
+const BlogPostsList = lazy(() => import("@/components/BlogPostsList"));
 const BlogPostEditor = lazy(() => import("@/components/BlogPostEditor"));
 
+interface BlogPost {
+  id: string;
+  title: string;
+  content: string;
+  status: "draft" | "published";
+  created_at: string;
+  slug: string;
+}
+
 const DashboardPage = () => {
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const [deletePostId, setDeletePostId] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const handleNewPost = () => {
+    setSelectedPost(null);
+    setIsEditorOpen(true);
+  };
+
+  const handleEditPost = (post: BlogPost) => {
+    setSelectedPost(post);
+    setIsEditorOpen(true);
+  };
+
+  const handleDeletePost = async (confirmed: boolean) => {
+    if (confirmed && deletePostId) {
+      try {
+        const { error } = await supabase
+          .from('blog_posts')
+          .delete()
+          .eq('id', deletePostId);
+
+        if (error) throw error;
+
+        toast({
+          title: "Post deleted",
+          description: "The blog post has been successfully deleted.",
+        });
+      } catch (error) {
+        console.error('Error deleting post:', error);
+        toast({
+          title: "Error",
+          description: "Failed to delete the blog post. Please try again.",
+          variant: "destructive",
+        });
+      }
+    }
+    setDeletePostId(null);
+  };
+
+  const handleSavePost = async (post: Omit<BlogPost, 'id' | 'date'>) => {
+    try {
+      if (selectedPost) {
+        // Update existing post
+        const { error } = await supabase
+          .from('blog_posts')
+          .update({
+            title: post.title,
+            content: post.content,
+            status: post.status,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', selectedPost.id);
+
+        if (error) throw error;
+
+        toast({
+          title: "Post updated",
+          description: "The blog post has been successfully updated.",
+        });
+      } else {
+        // Create new post
+        const { error } = await supabase
+          .from('blog_posts')
+          .insert([
+            {
+              title: post.title,
+              content: post.content,
+              status: post.status,
+              slug: post.title.toLowerCase().replace(/ /g, '-'),
+            },
+          ]);
+
+        if (error) throw error;
+
+        toast({
+          title: "Post created",
+          description: "The blog post has been successfully created.",
+        });
+      }
+
+      setIsEditorOpen(false);
+    } catch (error) {
+      console.error('Error saving post:', error);
+      toast({
+        title: "Error",
+        description: "Failed to save the blog post. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <AdminLayout>
       <div className="container mx-auto px-4 py-8">
@@ -91,18 +197,17 @@ const DashboardPage = () => {
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold">Blog Posts</h2>
-                    <Button>
+                    <Button onClick={handleNewPost}>
                       <FileText className="w-4 h-4 mr-2" />
                       New Post
                     </Button>
                   </div>
                   
-                  <div className="space-y-4">
-                    {/* Blog posts list will be implemented here */}
-                    <div className="text-muted-foreground text-center py-8">
-                      No blog posts yet. Create your first post!
-                    </div>
-                  </div>
+                  <BlogPostsList 
+                    onEdit={handleEditPost}
+                    onDelete={(id) => setDeletePostId(id)}
+                    onPreview={(slug) => window.open(`/blog/${slug}`, '_blank')}
+                  />
                 </div>
               </TabsContent>
 
