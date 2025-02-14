@@ -3,18 +3,15 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Services } from "@/components/Services";
 import { About } from "@/components/About";
-import { Projects } from "@/components/Projects";
 import { Features } from "@/components/Features";
-import { Innovation } from "@/components/Innovation";
-import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { Suspense, lazy } from "react";
 import { Loader2 } from "lucide-react";
 
 // Lazy load components that are not immediately visible
-const LazyProjects = lazy(() => import("@/components/Projects"));
-const LazyInnovation = lazy(() => import("@/components/Innovation"));
-const LazyContact = lazy(() => import("@/components/Contact"));
+const Projects = lazy(() => import("@/components/Projects"));
+const Innovation = lazy(() => import("@/components/Innovation"));
+const Contact = lazy(() => import("@/components/Contact"));
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[400px]">
@@ -34,13 +31,13 @@ const Home = () => {
         
         {/* Lazy loaded components */}
         <Suspense fallback={<LoadingFallback />}>
-          <LazyProjects />
+          <Projects />
         </Suspense>
         <Suspense fallback={<LoadingFallback />}>
-          <LazyInnovation />
+          <Innovation />
         </Suspense>
         <Suspense fallback={<LoadingFallback />}>
-          <LazyContact />
+          <Contact />
         </Suspense>
       </main>
       <Footer />

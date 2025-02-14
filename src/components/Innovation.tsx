@@ -1,7 +1,8 @@
+
 import { motion } from "framer-motion";
 import { Thermometer, Gauge } from "lucide-react";
 
-export const Innovation = () => {
+const Innovation = () => {
   return (
     <section className="py-20 relative overflow-hidden bg-primary/5">
       <div className="container mx-auto px-4">
@@ -54,3 +55,5 @@ export const Innovation = () => {
     </section>
   );
 };
+
+export default Innovation;

@@ -1,7 +1,8 @@
+
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-export const Contact = () => {
+const Contact = () => {
   return (
     <section className="py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent -z-10" />
@@ -35,3 +36,5 @@ export const Contact = () => {
     </section>
   );
 };
+
+export default Contact;

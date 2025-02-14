@@ -1,6 +1,7 @@
+
 import { motion } from "framer-motion";
 
-export const Projects = () => {
+const Projects = () => {
   const projects = [
     {
       title: "Residential Central Heating",
@@ -61,3 +62,5 @@ export const Projects = () => {
     </section>
   );
 };
+
+export default Projects;

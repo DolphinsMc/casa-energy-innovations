@@ -19,7 +19,7 @@ interface BlogPostEditorProps {
   onCancel: () => void;
 }
 
-export function BlogPostEditor({ post, onSave, onCancel }: BlogPostEditorProps) {
+const BlogPostEditor = ({ post, onSave, onCancel }: BlogPostEditorProps) => {
   const [title, setTitle] = useState(post?.title || "");
   const [content, setContent] = useState(post?.content || "");
   const [status, setStatus] = useState<"draft" | "published">(post?.status || "draft");
@@ -81,4 +81,6 @@ export function BlogPostEditor({ post, onSave, onCancel }: BlogPostEditorProps) 
       </div>
     </form>
   );
-}
+};
+
+export default BlogPostEditor;

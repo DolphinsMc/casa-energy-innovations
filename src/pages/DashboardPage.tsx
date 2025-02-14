@@ -1,14 +1,11 @@
-
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import {
   LayoutDashboard,
-  Users,
   Settings,
   FileText,
   Bell,
   Search,
-  Calendar,
   MessageSquare,
   BarChart3,
   Home,
@@ -19,7 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Suspense, lazy } from "react";
 
-const LazyBlogPostEditor = lazy(() => import("@/components/BlogPostEditor"));
+const BlogPostEditor = lazy(() => import("@/components/BlogPostEditor"));
 
 const DashboardPage = () => {
   return (
@@ -27,7 +24,6 @@ const DashboardPage = () => {
       <Header />
       
       <div className="container mx-auto px-4 py-8">
-        {/* Dashboard Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
             <LayoutDashboard className="w-8 h-8 text-primary" />
@@ -52,9 +48,7 @@ const DashboardPage = () => {
           </div>
         </div>
 
-        {/* Main Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {/* Sidebar */}
           <div className="col-span-1 space-y-2 bg-white p-4 rounded-lg shadow-sm">
             <Button variant="ghost" className="w-full justify-start">
               <Home className="mr-2 w-4 h-4" />
@@ -78,7 +72,6 @@ const DashboardPage = () => {
             </Button>
           </div>
 
-          {/* Content Area */}
           <div className="col-span-1 md:col-span-3 space-y-6">
             <Tabs defaultValue="chatbot" className="w-full">
               <TabsList className="w-full bg-white">
