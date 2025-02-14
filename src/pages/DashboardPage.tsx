@@ -1,3 +1,4 @@
+
 import { lazy, useState } from "react";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import {
@@ -26,9 +27,14 @@ interface BlogPost {
   id: string;
   title: string;
   content: string;
-  status: "draft" | "published";
+  status: string;
   created_at: string;
+  updated_at: string | null;
+  published_at: string | null;
   slug: string;
+  meta_description: string | null;
+  featured_image: string | null;
+  tags: string[] | null;
 }
 
 const DashboardPage = () => {
@@ -73,7 +79,7 @@ const DashboardPage = () => {
     setDeletePostId(null);
   };
 
-  const handleSavePost = async (post: Omit<BlogPost, 'id' | 'date'>) => {
+  const handleSavePost = async (post: Omit<BlogPost, 'id' | 'created_at' | 'updated_at' | 'published_at' | 'meta_description' | 'featured_image' | 'tags'>) => {
     try {
       if (selectedPost) {
         // Update existing post

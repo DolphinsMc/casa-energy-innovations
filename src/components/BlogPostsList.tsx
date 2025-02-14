@@ -6,13 +6,19 @@ import { FileText, Pencil, Trash2, Eye } from "lucide-react";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 
+// Update the interface to match the Supabase table structure
 interface BlogPost {
   id: string;
   title: string;
   content: string;
-  status: "draft" | "published";
+  status: string;
   created_at: string;
+  updated_at: string | null;
+  published_at: string | null;
   slug: string;
+  meta_description: string | null;
+  featured_image: string | null;
+  tags: string[] | null;
 }
 
 interface BlogPostsListProps {
