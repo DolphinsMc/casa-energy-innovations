@@ -71,7 +71,7 @@ const DashboardPage = () => {
           </aside>
 
           <main className="col-span-1 md:col-span-3 space-y-6">
-            <Tabs defaultValue="chatbot" className="w-full">
+            <Tabs defaultValue="content" className="w-full">
               <TabsList className="w-full bg-white">
                 <TabsTrigger value="content" className="flex-1">
                   <FileText className="w-4 h-4 mr-2" />
@@ -86,6 +86,25 @@ const DashboardPage = () => {
                   Analytics
                 </TabsTrigger>
               </TabsList>
+
+              <TabsContent value="content">
+                <div className="p-6 bg-white rounded-lg shadow-sm">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold">Blog Posts</h2>
+                    <Button>
+                      <FileText className="w-4 h-4 mr-2" />
+                      New Post
+                    </Button>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {/* Blog posts list will be implemented here */}
+                    <div className="text-muted-foreground text-center py-8">
+                      No blog posts yet. Create your first post!
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
 
               <TabsContent value="chatbot">
                 <div className="p-6 bg-white rounded-lg shadow-sm space-y-6">
@@ -102,6 +121,15 @@ const DashboardPage = () => {
                   <div className="space-y-2">
                     <label className="font-semibold">Chatbot Name</label>
                     <Input placeholder="CASA Assistant" />
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="analytics">
+                <div className="p-6 bg-white rounded-lg shadow-sm">
+                  <h2 className="text-2xl font-bold mb-4">Analytics</h2>
+                  <div className="text-muted-foreground text-center py-8">
+                    Analytics dashboard coming soon
                   </div>
                 </div>
               </TabsContent>
