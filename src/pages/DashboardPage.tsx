@@ -1,5 +1,6 @@
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+
+import { lazy } from "react";
+import AdminLayout from "@/components/layouts/AdminLayout";
 import {
   LayoutDashboard,
   Settings,
@@ -14,15 +15,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
-import { Suspense, lazy } from "react";
 
 const BlogPostEditor = lazy(() => import("@/components/BlogPostEditor"));
 
 const DashboardPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
+    <AdminLayout>
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
@@ -49,7 +47,7 @@ const DashboardPage = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="col-span-1 space-y-2 bg-white p-4 rounded-lg shadow-sm">
+          <aside className="col-span-1 space-y-2 bg-white p-4 rounded-lg shadow-sm">
             <Button variant="ghost" className="w-full justify-start">
               <Home className="mr-2 w-4 h-4" />
               Overview
@@ -70,9 +68,9 @@ const DashboardPage = () => {
               <Settings className="mr-2 w-4 h-4" />
               Settings
             </Button>
-          </div>
+          </aside>
 
-          <div className="col-span-1 md:col-span-3 space-y-6">
+          <main className="col-span-1 md:col-span-3 space-y-6">
             <Tabs defaultValue="chatbot" className="w-full">
               <TabsList className="w-full bg-white">
                 <TabsTrigger value="content" className="flex-1">
@@ -108,12 +106,10 @@ const DashboardPage = () => {
                 </div>
               </TabsContent>
             </Tabs>
-          </div>
+          </main>
         </div>
       </div>
-      
-      <Footer />
-    </div>
+    </AdminLayout>
   );
 };
 
