@@ -25,7 +25,7 @@ interface BlogPost {
 
 interface BlogPostEditorProps {
   post?: BlogPost | null;
-  onSave: (post: Omit<BlogPost, 'id' | 'created_at' | 'updated_at' | 'published_at' | 'meta_description' | 'featured_image' | 'tags'>) => void;
+  onSave: (post: Omit<BlogPost, 'id' | 'created_at' | 'updated_at' | 'published_at'>) => void;
   onCancel: () => void;
 }
 
