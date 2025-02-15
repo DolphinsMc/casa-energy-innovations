@@ -21,7 +21,7 @@ interface Lead {
   name: string;
   email: string;
   phone: string | null;
-  service_type: string; // Changed from service_interest to match database
+  service_type: string;
   status: string;
   qualification_score: number;
   created_at: string;
@@ -36,6 +36,34 @@ const LeadsManagement = () => {
 
   useEffect(() => {
     fetchLeads();
+
+    // Subscribe to real-time updates
+    const channel = supabase
+      .channel('public:leads')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'leads'
+        },
+        (payload) => {
+          if (payload.eventType === 'INSERT') {
+            setLeads(prev => [payload.new as Lead, ...prev]);
+          } else if (payload.eventType === 'DELETE') {
+            setLeads(prev => prev.filter(lead => lead.id !== payload.old.id));
+          } else if (payload.eventType === 'UPDATE') {
+            setLeads(prev => prev.map(lead => 
+              lead.id === payload.new.id ? payload.new as Lead : lead
+            ));
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const fetchLeads = async () => {
@@ -57,6 +85,29 @@ const LeadsManagement = () => {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const deleteLead = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from("leads")
+        .delete()
+        .match({ id });
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Lead deleted successfully.",
+      });
+    } catch (error) {
+      console.error("Error deleting lead:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete lead. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -146,7 +197,11 @@ const LeadsManagement = () => {
                       <Button variant="ghost" size="icon">
                         <Edit className="w-4 h-4" />
                       </Button>
-                      <Button variant="ghost" size="icon">
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        onClick={() => deleteLead(lead.id)}
+                      >
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
