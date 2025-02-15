@@ -5,6 +5,7 @@ import { Input } from "./ui/input";
 import { MessageCircle, X, Minimize2, Maximize2, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "./ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Message {
   content: string;
@@ -34,19 +35,12 @@ export const ChatBot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message: input }),
+      const { data, error } = await supabase.functions.invoke('chat', {
+        body: { message: input }
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to get response");
-      }
+      if (error) throw error;
 
-      const data = await response.json();
       const botResponse: Message = {
         content: data.response,
         role: "assistant",
