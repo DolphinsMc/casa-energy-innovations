@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import {
   LayoutDashboard,
@@ -9,7 +10,7 @@ import {
   BarChart3,
   Download,
   Palette,
-  FileTemplate,
+  FileCode,
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -51,7 +52,7 @@ const AdminDashboard = () => {
             Content
           </TabsTrigger>
           <TabsTrigger value="templates" className="flex-1">
-            <FileTemplate className="w-4 h-4 mr-2" />
+            <FileCode className="w-4 h-4 mr-2" />
             Templates
           </TabsTrigger>
           <TabsTrigger value="chatbot" className="flex-1">
