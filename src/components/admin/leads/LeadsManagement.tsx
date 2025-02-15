@@ -21,10 +21,12 @@ interface Lead {
   name: string;
   email: string;
   phone: string | null;
-  service_interest: string;
+  service_type: string; // Changed from service_interest to match database
   status: string;
   qualification_score: number;
   created_at: string;
+  message?: string;
+  updated_at?: string;
 }
 
 const LeadsManagement = () => {
@@ -131,7 +133,7 @@ const LeadsManagement = () => {
                       )}
                     </div>
                   </TableCell>
-                  <TableCell>{lead.service_interest}</TableCell>
+                  <TableCell>{lead.service_type}</TableCell>
                   <TableCell>
                     <Badge className={getStatusColor(lead.status)}>
                       {lead.status}
