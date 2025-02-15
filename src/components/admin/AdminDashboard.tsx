@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import {
   LayoutDashboard,
@@ -15,6 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import LeadsManagement from "./leads/LeadsManagement";
+import BookingsManagement from "./bookings/BookingsManagement";
 
 const AdminDashboard = () => {
   const { toast } = useToast();
@@ -39,13 +41,13 @@ const AdminDashboard = () => {
             <Users className="w-4 h-4 mr-2" />
             Leads
           </TabsTrigger>
-          <TabsTrigger value="content" className="flex-1">
-            <FileText className="w-4 h-4 mr-2" />
-            Content
-          </TabsTrigger>
           <TabsTrigger value="bookings" className="flex-1">
             <Calendar className="w-4 h-4 mr-2" />
             Bookings
+          </TabsTrigger>
+          <TabsTrigger value="content" className="flex-1">
+            <FileText className="w-4 h-4 mr-2" />
+            Content
           </TabsTrigger>
           <TabsTrigger value="chatbot" className="flex-1">
             <MessageSquare className="w-4 h-4 mr-2" />
@@ -101,6 +103,10 @@ const AdminDashboard = () => {
             <LeadsManagement />
           </TabsContent>
 
+          <TabsContent value="bookings">
+            <BookingsManagement />
+          </TabsContent>
+
           <TabsContent value="content">
             <Card>
               <CardHeader>
@@ -108,17 +114,6 @@ const AdminDashboard = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">Content management interface coming soon...</p>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="bookings">
-            <Card>
-              <CardHeader>
-                <CardTitle>Booking Management</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Booking management interface coming soon...</p>
               </CardContent>
             </Card>
           </TabsContent>
