@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import {
   LayoutDashboard,
@@ -10,6 +9,7 @@ import {
   BarChart3,
   Download,
   Palette,
+  FileTemplate,
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,6 +17,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import LeadsManagement from "./leads/LeadsManagement";
 import BookingsManagement from "./bookings/BookingsManagement";
+import TemplatesManagement from "./templates/TemplatesManagement";
 
 const AdminDashboard = () => {
   const { toast } = useToast();
@@ -48,6 +49,10 @@ const AdminDashboard = () => {
           <TabsTrigger value="content" className="flex-1">
             <FileText className="w-4 h-4 mr-2" />
             Content
+          </TabsTrigger>
+          <TabsTrigger value="templates" className="flex-1">
+            <FileTemplate className="w-4 h-4 mr-2" />
+            Templates
           </TabsTrigger>
           <TabsTrigger value="chatbot" className="flex-1">
             <MessageSquare className="w-4 h-4 mr-2" />
@@ -116,6 +121,10 @@ const AdminDashboard = () => {
                 <p className="text-muted-foreground">Content management interface coming soon...</p>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="templates">
+            <TemplatesManagement />
           </TabsContent>
 
           <TabsContent value="chatbot">
