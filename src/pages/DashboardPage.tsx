@@ -79,7 +79,7 @@ const DashboardPage = () => {
     setDeletePostId(null);
   };
 
-  const handleSavePost = async (post: Omit<BlogPost, 'id' | 'created_at' | 'updated_at' | 'published_at' | 'meta_description' | 'featured_image' | 'tags'>) => {
+  const handleSavePost = async (post: Omit<BlogPost, 'id' | 'created_at' | 'updated_at' | 'published_at'>) => {
     try {
       if (selectedPost) {
         // Update existing post
@@ -89,6 +89,10 @@ const DashboardPage = () => {
             title: post.title,
             content: post.content,
             status: post.status,
+            meta_description: post.meta_description,
+            featured_image: post.featured_image,
+            tags: post.tags,
+            slug: post.slug,
             updated_at: new Date().toISOString(),
           })
           .eq('id', selectedPost.id);
@@ -103,14 +107,15 @@ const DashboardPage = () => {
         // Create new post
         const { error } = await supabase
           .from('blog_posts')
-          .insert([
-            {
-              title: post.title,
-              content: post.content,
-              status: post.status,
-              slug: post.title.toLowerCase().replace(/ /g, '-'),
-            },
-          ]);
+          .insert([{
+            title: post.title,
+            content: post.content,
+            status: post.status,
+            meta_description: post.meta_description,
+            featured_image: post.featured_image,
+            tags: post.tags,
+            slug: post.slug,
+          }]);
 
         if (error) throw error;
 
