@@ -10,20 +10,26 @@ interface BlogPost {
   id: string;
   title: string;
   content: string;
-  status: "draft" | "published";
-  date: string;
+  status: string;
+  created_at: string;
+  updated_at: string | null;
+  published_at: string | null;
+  slug: string;
+  meta_description: string | null;
+  featured_image: string | null;
+  tags: string[] | null;
 }
 
 interface BlogPostEditorProps {
   post?: BlogPost | null;
-  onSave: (post: Omit<BlogPost, 'id' | 'date'>) => void;
+  onSave: (post: Omit<BlogPost, 'id' | 'created_at' | 'updated_at' | 'published_at' | 'meta_description' | 'featured_image' | 'tags'>) => void;
   onCancel: () => void;
 }
 
 const BlogPostEditor = ({ post, onSave, onCancel }: BlogPostEditorProps) => {
   const [title, setTitle] = useState(post?.title || "");
   const [content, setContent] = useState(post?.content || "");
-  const [status, setStatus] = useState<"draft" | "published">(post?.status || "draft");
+  const [status, setStatus] = useState<string>(post?.status || "draft");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +37,7 @@ const BlogPostEditor = ({ post, onSave, onCancel }: BlogPostEditorProps) => {
       title,
       content,
       status,
+      slug: title.toLowerCase().replace(/ /g, '-'),
     });
   };
 
@@ -61,7 +68,7 @@ const BlogPostEditor = ({ post, onSave, onCancel }: BlogPostEditorProps) => {
 
       <div className="space-y-2">
         <Label htmlFor="status">Status</Label>
-        <Select value={status} onValueChange={(value: "draft" | "published") => setStatus(value)}>
+        <Select value={status} onValueChange={(value: string) => setStatus(value)}>
           <SelectTrigger id="status">
             <SelectValue placeholder="Select status" />
           </SelectTrigger>
