@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import {
   LayoutDashboard,
@@ -15,6 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import LeadsManagement from "./leads/LeadsManagement";
 
 const AdminDashboard = () => {
   const { toast } = useToast();
@@ -98,14 +98,7 @@ const AdminDashboard = () => {
           </TabsContent>
 
           <TabsContent value="leads">
-            <Card>
-              <CardHeader>
-                <CardTitle>Lead Management</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Lead management interface coming soon...</p>
-              </CardContent>
-            </Card>
+            <LeadsManagement />
           </TabsContent>
 
           <TabsContent value="content">
