@@ -1,3 +1,4 @@
+
 import { Logo } from "./Logo";
 import { Link } from "react-router-dom";
 import {
@@ -9,7 +10,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { Package, Truck, Building, Phone, Mail, User, FileText, Home, Wrench, Shield, Award, HelpCircle } from "lucide-react";
+import { Package, Truck, Building, Phone, Mail, User, FileText, Home, Wrench, Shield, Award, HelpCircle, MessageSquare, Boxes, Hammer, Bath } from "lucide-react";
 import React from "react";
 
 const ListItem = React.forwardRef<
@@ -63,43 +64,31 @@ export const Header = () => {
 
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent text-white hover:bg-white/10">
-                  Products
+                  Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    <ListItem href="/building-materials" title="Building Materials" icon={Building}>
-                      Quality construction supplies
+                    <ListItem href="/electrician" title="Electrician Services" icon={Wrench}>
+                      Professional electrical solutions
                     </ListItem>
-                    <ListItem href="/tools" title="Tools & Equipment" icon={Wrench}>
-                      Professional grade tools
+                    <ListItem href="/plumber" title="Plumbing Services" icon={Hammer}>
+                      Expert plumbing solutions
                     </ListItem>
-                    <ListItem href="/delivery" title="Delivery Services" icon={Truck}>
-                      Fast and reliable shipping
+                    <ListItem href="/tile" title="Tiling Services" icon={Boxes}>
+                      Professional tiling work
                     </ListItem>
-                    <ListItem href="/packages" title="Supply Packages" icon={Package}>
-                      Complete project solutions
+                    <ListItem href="/bathroom" title="Bathroom Services" icon={Bath}>
+                      Complete bathroom solutions
                     </ListItem>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-white hover:bg-white/10">
-                  Services
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4">
-                    <ListItem href="/consultation" title="Expert Consultation" icon={HelpCircle}>
-                      Professional guidance for your project
-                    </ListItem>
-                    <ListItem href="/warranty" title="Warranty" icon={Shield}>
-                      Our guarantee to you
-                    </ListItem>
-                    <ListItem href="/support" title="Support" icon={Wrench}>
-                      Technical assistance
-                    </ListItem>
-                  </ul>
-                </NavigationMenuContent>
+                <Link to="/blog" className="text-white hover:text-secondary px-4 py-2 flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4" />
+                  Blog
+                </Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
@@ -113,6 +102,13 @@ export const Header = () => {
                 <Link to="/contact" className="text-white hover:text-secondary px-4 py-2 flex items-center gap-2">
                   <Phone className="w-4 h-4" />
                   Contact
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link to="/login" className="text-white hover:text-secondary px-4 py-2 flex items-center gap-2">
+                  <User className="w-4 h-4" />
+                  Login
                 </Link>
               </NavigationMenuItem>
             </NavigationMenuList>
