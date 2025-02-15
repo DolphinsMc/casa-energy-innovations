@@ -5,7 +5,7 @@ export const Logo = () => {
   return (
     <div className="flex items-center gap-2">
       <div 
-        className="text-2xl font-bold relative"
+        className="text-3xl font-bold relative"
         style={{
           transform: "perspective(500px) rotateX(10deg)",
           textShadow: `
