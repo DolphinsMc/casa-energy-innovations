@@ -9,11 +9,11 @@ export const Logo = () => {
         style={{
           transform: "perspective(500px) rotateX(10deg)",
           textShadow: `
-            1px 1px 1px rgba(0,0,0,0.1),
-            2px 2px 1px rgba(0,0,0,0.1),
-            3px 3px 1px rgba(0,0,0,0.1),
-            4px 4px 2px rgba(0,0,0,0.1),
-            5px 5px 6px rgba(0,0,0,0.1)
+            1px 1px 2px rgba(0,0,0,0.2),
+            2px 2px 2px rgba(0,0,0,0.2),
+            3px 3px 3px rgba(0,0,0,0.2),
+            4px 4px 4px rgba(0,0,0,0.2),
+            5px 5px 8px rgba(0,0,0,0.3)
           `
         }}
       >
